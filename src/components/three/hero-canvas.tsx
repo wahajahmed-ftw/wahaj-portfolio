@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { InstrumentSvg } from "@/components/instrument-svg";
+import { LatticeSvg } from "@/components/lattice-svg";
 import { useCanvasGate } from "./use-canvas-gate";
 
 // Three.js is roughly 170KB gzipped. ssr:false plus a gate on
@@ -25,7 +25,7 @@ export function HeroCanvas() {
           mounted ? "opacity-0" : "opacity-100"
         }`}
       >
-        <InstrumentSvg className="h-[min(58vh,26rem)] w-auto opacity-70" />
+        <LatticeSvg className="h-[min(58vh,26rem)] w-auto opacity-70" />
       </div>
 
       {mounted && <HeroScene active={active} onFirstDrag={() => setDragged(true)} />}

@@ -18,17 +18,21 @@ export function About() {
           <div className="grid max-w-[62ch] gap-5 text-body text-muted">
             <h2 className="text-title text-fg">About</h2>
             <p>
-              I studied computer science at Bahria University in Islamabad,
-              started at Teknotize as a full stack intern, and was promoted to
-              Associate Software Engineer three months in. I am now a Software
-              Engineer at Volmatica, working across React front ends and Node
-              services.
+              I work on the parts of a product that users never see directly:
+              the data layer that has to stay consistent, the endpoint that has
+              to stay fast, the component everyone else builds on. Most of what
+              I am proud of is invisible when it works.
             </p>
             <p>
-              Most of my work is in the parts users never see directly: the data
-              layer that has to stay consistent, the endpoint that has to stay
-              fast, the component everyone else builds on. I also built ProShop
-              PK, a MERN e-commerce app, while learning that stack.
+              The pattern across the work above is the same. Measure the thing
+              that is actually failing, change the shape of the system rather
+              than tuning around the symptom, then check the number moved. A
+              gateway timeout is not a query problem. Duplicate components are
+              not a code problem. Both are architecture answering the wrong
+              question.
+            </p>
+            <p>
+              Based in Islamabad, working remotely with teams anywhere.
             </p>
           </div>
         </div>

@@ -20,6 +20,32 @@ export function useCanvasGate<T extends HTMLElement>() {
   const [inView, setInView] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [idle, setIdle] = useState(false);
+
+  // "It loads after paint or it does not load." Waiting for load plus an idle
+  // callback keeps the scene chunk from competing with the main thread while
+  // the page is still becoming interactive.
+  useEffect(() => {
+    let cancelled = false;
+    const arm = () => {
+      if (cancelled) return;
+      if (typeof window.requestIdleCallback === "function") {
+        window.requestIdleCallback(() => !cancelled && setIdle(true), {
+          timeout: 2500,
+        });
+      } else {
+        setTimeout(() => !cancelled && setIdle(true), 300);
+      }
+    };
+
+    if (document.readyState === "complete") arm();
+    else window.addEventListener("load", arm, { once: true });
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener("load", arm);
+    };
+  }, []);
 
   // One query covers both rules from the performance budget: skip WebGL below
   // 768px, and skip it whenever the user asked for less motion.
@@ -56,7 +82,7 @@ export function useCanvasGate<T extends HTMLElement>() {
 
   return {
     ref,
-    mounted: mounted && eligible,
+    mounted: mounted && eligible && idle,
     active: eligible && inView && pageVisible,
   };
 }

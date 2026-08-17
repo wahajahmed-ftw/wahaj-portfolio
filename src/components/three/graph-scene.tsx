@@ -1,23 +1,13 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import {
-  AdaptiveDpr,
-  Html,
-  Line,
-  PerformanceMonitor,
-  PresentationControls,
-} from "@react-three/drei";
-import {
-  EffectComposer,
-  N8AO,
-  Outline,
-  Select,
-  Selection,
-  ToneMapping,
-} from "@react-three/postprocessing";
-import { ToneMappingMode } from "postprocessing";
+import { AdaptiveDpr } from "@react-three/drei/core/AdaptiveDpr";
+import { Line } from "@react-three/drei/core/Line";
+import { PerformanceMonitor } from "@react-three/drei/core/PerformanceMonitor";
+import { Html } from "@react-three/drei/web/Html";
+import { PresentationControls } from "@react-three/drei/web/PresentationControls";
+import { Select, Selection } from "@react-three/postprocessing";
 import { Quaternion, Vector3 } from "three";
 import type { Line2 } from "three/addons/lines/Line2.js";
 import {
@@ -28,6 +18,10 @@ import {
   type GraphNode,
 } from "@/lib/graph";
 import { RoomEnv } from "./room-env";
+
+const GraphEffects = lazy(() =>
+  import("./graph-effects").then((m) => ({ default: m.GraphEffects })),
+);
 
 const UP = new Vector3(0, 1, 0);
 
@@ -157,29 +151,15 @@ export function GraphScene({ active }: { active: boolean }) {
       />
       <AdaptiveDpr />
 
-      <RoomEnv intensity={1.15} />
+      <RoomEnv intensity={0.85} />
       <directionalLight position={[-4.5, 1.6, -3.2]} intensity={3.2} />
       <directionalLight position={[3.2, 4, 5]} intensity={1} />
 
       <Selection>
         {effects && (
-          <EffectComposer enableNormalPass={false} multisampling={0} autoClear={false}>
-            <N8AO
-              aoRadius={0.5}
-              distanceFalloff={0.8}
-              intensity={1.8}
-              quality="performance"
-              halfRes
-            />
-            <Outline
-              visibleEdgeColor={0xededee}
-              hiddenEdgeColor={0x4a4a4c}
-              edgeStrength={7}
-              blur
-              width={1000}
-            />
-            <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
-          </EffectComposer>
+          <Suspense fallback={null}>
+            <GraphEffects />
+          </Suspense>
         )}
 
         <PresentationControls

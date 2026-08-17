@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -46,11 +47,6 @@ const personSchema = {
     addressLocality: "Islamabad",
     addressCountry: "PK",
   },
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: "Bahria University",
-  },
-  worksFor: { "@type": "Organization", name: "Volmatica" },
   knowsAbout: [
     "TypeScript",
     "React",
@@ -70,6 +66,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body>
+        <SmoothScroll />
         {children}
         <script
           type="application/ld+json"

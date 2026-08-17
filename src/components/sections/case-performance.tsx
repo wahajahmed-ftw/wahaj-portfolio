@@ -36,9 +36,9 @@ export function CasePerformance() {
         </Reveal>
 
         <Reveal className="lg:col-span-7" index={1}>
-          <h2 className="text-title">Performance work at Volmatica</h2>
+          <h2 className="max-w-[20ch] text-title">Cutting first render in half</h2>
           <p className="mt-4 font-mono text-small text-muted">
-            Software Engineer, February 2025 to present
+            React, TanStack Query, code splitting
           </p>
 
           <div className="mt-8 grid max-w-[62ch] gap-5 text-body text-muted">

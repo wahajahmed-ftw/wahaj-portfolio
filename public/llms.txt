@@ -3,53 +3,64 @@
 Full-stack engineer based in Islamabad, Pakistan. I build React and Node
 systems that hold up past 100,000 users. Contact: wahmed@outsentia.com
 
-## Current role
+## Outcomes
 
-Software Engineer at Volmatica, February 2025 to present. Previously Associate
-Software Engineer at Teknotize, promoted from Full Stack Intern in three
-months. BS Computer Science, Bahria University, Islamabad.
+- 100,000+ students per district served by a scheduling platform, with
+  scheduling errors down 90%
+- Initial page load reduced from 3.5s to 1.8s, Lighthouse from 65 to 92
+- Redundant API requests down 40%, server load down 20%
+- Feature development cycles 30% faster, frontend code duplication down 20%
 
 ## Selected work
 
-### Student Management Platform
+### Scheduling at scale
 React, Node.js, GraphQL, AWS Lambda, SQS, S3, DynamoDB.
 
-Full-stack scheduling for an enterprise tutoring platform serving over 100,000
-students per district, with scheduling errors down 90%.
+A full-stack scheduling system for an enterprise tutoring platform serving over
+100,000 students per district. Scheduling errors fell 90%.
 
-Report exports for large datasets were timing out at API Gateway. Because the
-gateway timeout is a platform limit rather than a slow query, the fix was to
-move exports out of the request path entirely: a scheduled job builds the
-report, writes it to S3, and the client receives a pre-signed URL instead of a
-payload. API Gateway is no longer in the data path, so report size stopped
-being an availability problem.
+The interesting failure was report exports. Large districts produced datasets
+big enough that the request timed out at API Gateway before the response
+finished, and query tuning could not reach it because the gateway timeout is a
+platform limit rather than a slow query. So exports left the request path
+entirely. A scheduled job builds the report, writes it to S3, and the client
+receives a pre-signed URL instead of a payload. API Gateway is no longer in the
+data path, which is what stopped report size from being an availability
+problem.
 
 Also built validation and consistency checks that block conflicting or
 duplicate student assignments, plus an admin dashboard with downloadable
 schedule summaries.
 
-### Performance work at Volmatica
-Initial page load reduced from 3.5s to 1.8s and Lighthouse from 65 to 92, via
-route level React code splitting, lazy loading of below-the-fold components,
-and rendering optimization. A separate pass on data fetching moved the app to
-TanStack Query with a deliberate cache and invalidation strategy, cutting
-redundant API requests by 40% and server load by 20%.
+### Cutting first render in half
+React, TanStack Query, code splitting.
+
+Measured initial page load and Lighthouse on the routes users actually landed
+on. The bundle shipped effectively the whole app on every route, so components
+that only rendered below the fold were parsed before anything painted. Route
+level code splitting, lazy loading, and rendering optimization took load from
+3.5s to 1.8s and Lighthouse from 65 to 92.
+
+A separate pass covered data fetching. The same queries were being refetched by
+components mounting independently of each other. Moving to TanStack Query with
+a deliberate cache and invalidation strategy cut redundant API requests 40% and
+server load 20%.
 
 ### Shared component library
 React, Tailwind, Chakra UI, shadcn/ui, Storybook.
 
-Consolidated duplicated UI primitives into a documented shared library. Feature
-development cycles became 30% faster and frontend code duplication dropped 20%.
-
-### ProShop PK
-MERN e-commerce application, built while learning that stack.
+Teams were rebuilding the same modal, form field and table. The cost was not
+the duplicated code, it was that fixing one accessibility bug meant finding six
+copies of it first. Consolidating those primitives into a documented shared
+library made feature development cycles 30% faster and cut frontend code
+duplication 20%.
 
 ## How I work
 
-Microservices behind well-defined API contracts. Standardized API response
-patterns and reusable middleware. Structured logging and monitoring to cut
-incident resolution time. End to end feature ownership from design through
-deployment.
+Services behind explicit API contracts. Standardized response shapes and
+reusable middleware. Structured logging with request correlation, so an
+incident starts from a query rather than a guess. End to end ownership from
+design through deployment.
 
 ## Stack
 
