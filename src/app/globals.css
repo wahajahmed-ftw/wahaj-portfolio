@@ -7,7 +7,9 @@
    --------------------------------------------------------------- */
 
 @theme {
-  /* Palette */
+  /* Palette.
+     Text is only ever fg (16.3:1) or muted (5.75:1). faint is 2.2:1 against
+     bg, so it is a rule and edge color and never carries type. */
   --color-bg: #0a0a0b;
   --color-raise: #141416;
   --color-line: #1e1e21;
@@ -18,7 +20,7 @@
   /* Type scale. Fluid, clamped, no step below 12px. */
   --text-display: clamp(2.75rem, 1.4rem + 6.4vw, 6rem);
   --text-display--line-height: 0.92;
-  --text-display--letter-spacing: -0.045em;
+  --text-display--letter-spacing: -0.04em;
   --text-display--font-weight: 500;
 
   --text-title: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
@@ -94,11 +96,56 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
 /* Tabular figures everywhere mono is used, so numbers do not jitter. */
 .font-mono,
 code,
 kbd {
   font-variant-numeric: tabular-nums;
+}
+
+/* Scroll reveal, native. No JavaScript, no library, and no chance of content
+   being stranded at opacity 0 if a bundle fails: where view() timelines are
+   unsupported the element simply renders visible and unanimated.
+   `--reveal-i` staggers a group by shifting where each item's range starts. */
+@utility reveal {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry calc(4% + var(--reveal-i, 0) * 4%) cover 26%;
+    }
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Vignette over the 3D canvases. CSS gradient, not a shader. */
+@utility vignette {
+  background: radial-gradient(
+    115% 85% at 62% 42%,
+    transparent 32%,
+    color-mix(in srgb, var(--color-bg) 62%, transparent) 68%,
+    var(--color-bg) 100%
+  );
 }
 
 ::selection {
