@@ -2,38 +2,49 @@ import { Reveal } from "@/components/reveal";
 
 const practices = [
   {
-    lead: "Services behind explicit API contracts.",
+    lead: "Services behind explicit contracts.",
     body: "Microservices only earn their operational cost if the boundaries are real. I settle the contract first and the implementation second, so a change on one side cannot quietly break the other.",
   },
   {
-    lead: "Standardized responses and reusable middleware.",
-    body: "One response shape across endpoints, one place for auth, validation, and error handling. Consumers stop writing a special case for every route.",
+    lead: "One response shape, one middleware path.",
+    body: "Standardized API responses and reusable middleware for auth, validation, and errors. Consumers stop writing a special case for every route.",
   },
   {
-    lead: "Structured logging and monitoring.",
-    body: "Consistent fields and request correlation, so an incident starts from a query instead of a guess. This is the cheapest thing on the list and it cuts resolution time the most.",
+    lead: "Logs you can query, not grep.",
+    body: "Structured logging with request correlation, so an incident starts from a query instead of a guess. Cheapest item on this list, biggest cut to resolution time.",
   },
   {
-    lead: "End to end ownership.",
+    lead: "Own it to production.",
     body: "Design through deployment, including the deploy. Running the thing in production changes the decisions you make while building it.",
   },
 ];
 
+function Spark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+      <path
+        d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"
+        stroke="var(--color-blue)"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function HowIWork() {
   return (
-    <section className="shell py-section">
-      <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-4">
-          <h2 className="text-title lg:sticky lg:top-28">How I work</h2>
-        </div>
-
-        <div className="grid gap-10 lg:col-span-8">
+    <section className="py-section">
+      <div className="shell">
+        <Reveal>
+          <h2 className="max-w-[14ch] text-title">How I work</h2>
+        </Reveal>
+        <div className="mt-12 grid gap-x-14 gap-y-12 sm:grid-cols-2">
           {practices.map((practice, i) => (
             <Reveal key={practice.lead} index={i}>
-              <p className="max-w-[52ch] text-sub text-fg">{practice.lead}</p>
-              <p className="mt-3 max-w-[62ch] text-body text-muted">
-                {practice.body}
-              </p>
+              <Spark />
+              <h3 className="mt-4 max-w-[24ch] text-sub">{practice.lead}</h3>
+              <p className="mt-3 max-w-[46ch] text-body text-muted">{practice.body}</p>
             </Reveal>
           ))}
         </div>

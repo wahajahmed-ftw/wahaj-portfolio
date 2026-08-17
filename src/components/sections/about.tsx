@@ -3,40 +3,43 @@ import { Reveal } from "@/components/reveal";
 
 export function About() {
   return (
-    <section id="about" className="shell scroll-mt-24 py-section">
-      <Reveal>
-        <div className="grid gap-10 sm:grid-cols-[13rem_1fr] sm:gap-14">
-          <Image
-            src="/Wahaj.jpeg"
-            alt="Wahaj Ahmed"
-            width={208}
-            height={208}
-            sizes="208px"
-            className="rounded-edge grayscale w-52 h-52 object-cover"
-          />
+    <section id="about" className="scroll-mt-20 py-section">
+      <div className="shell">
+        <Reveal>
+          <div className="grid items-start gap-12 sm:grid-cols-[16rem_1fr] sm:gap-16">
+            <div className="relative mx-auto w-56 rotate-[-2deg] sm:mx-0 sm:w-64">
+              <Image
+                src="/Wahaj.jpeg"
+                alt="Wahaj Ahmed"
+                width={256}
+                height={256}
+                sizes="(min-width: 640px) 256px, 224px"
+                className="desk-red rounded-edge border-2 border-ink"
+              />
+              <span className="stamp absolute -right-5 -bottom-5">est. islamabad</span>
+            </div>
 
-          <div className="grid max-w-[62ch] gap-5 text-body text-muted">
-            <h2 className="text-title text-fg">About</h2>
-            <p>
-              I work on the parts of a product that users never see directly:
-              the data layer that has to stay consistent, the endpoint that has
-              to stay fast, the component everyone else builds on. Most of what
-              I am proud of is invisible when it works.
-            </p>
-            <p>
-              The pattern across the work above is the same. Measure the thing
-              that is actually failing, change the shape of the system rather
-              than tuning around the symptom, then check the number moved. A
-              gateway timeout is not a query problem. Duplicate components are
-              not a code problem. Both are architecture answering the wrong
-              question.
-            </p>
-            <p>
-              Based in Islamabad, working remotely with teams anywhere.
-            </p>
+            <div className="grid max-w-[60ch] gap-5 text-body text-muted">
+              <h2 className="text-title text-ink">About</h2>
+              <p>
+                I work on the parts of a product users never see directly: the
+                data layer that has to stay consistent, the endpoint that has
+                to stay fast, the component everyone else builds on. Most of
+                what I am proud of is invisible when it works.
+              </p>
+              <p>
+                The pattern across the case files is the same. Measure the
+                thing that is actually failing, change the shape of the system
+                rather than tuning around the symptom, then check the number
+                moved. A gateway timeout is not a query problem. Duplicate
+                components are not a code problem. Both are architecture
+                answering the wrong question.
+              </p>
+              <p>Based in Islamabad, working remotely with teams anywhere.</p>
+            </div>
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
+      </div>
     </section>
   );
 }

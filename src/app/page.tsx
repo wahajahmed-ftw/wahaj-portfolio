@@ -4,6 +4,7 @@ import { Impact } from "@/components/sections/impact";
 import { CaseScheduling } from "@/components/sections/case-scheduling";
 import { CasePerformance } from "@/components/sections/case-performance";
 import { CaseComponents } from "@/components/sections/case-components";
+import { CaseSite } from "@/components/sections/case-site";
 import { HowIWork } from "@/components/sections/how-i-work";
 import { Stack } from "@/components/sections/stack";
 import { About } from "@/components/sections/about";
@@ -19,6 +20,7 @@ export default function Home() {
         <CaseScheduling />
         <CasePerformance />
         <CaseComponents />
+        <CaseSite />
         <HowIWork />
         <Stack />
         <About />

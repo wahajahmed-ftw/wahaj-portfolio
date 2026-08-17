@@ -1,49 +1,96 @@
+import { PipelineIso } from "@/components/pipeline-iso";
 import { Reveal } from "@/components/reveal";
-import { GraphCanvas } from "@/components/three/graph-canvas";
+import { ScrollSteps } from "@/components/scroll-steps";
+
+function Figure() {
+  return (
+    <div className="relative">
+      <figure className="desk-blue rounded-edge border-2 border-ink bg-white p-4 sm:p-5">
+        <PipelineIso mode="sched" />
+      </figure>
+      <span className="stamp scene-stamp absolute -bottom-4 right-6">
+        errors down 90%
+      </span>
+    </div>
+  );
+}
 
 export function CaseScheduling() {
   return (
-    <section id="work" className="shell scroll-mt-24 py-section">
-      <div className="grid items-start gap-14 lg:grid-cols-12 lg:gap-16">
-        <Reveal className="lg:col-span-5">
-          <h2 className="text-title">Student Management Platform</h2>
+    <section id="work" className="scroll-mt-20 py-section">
+      <div className="shell">
+        <Reveal>
+          <p className="font-mono text-small text-blue">case file 01</p>
+          <h2 className="mt-2 max-w-[16ch] text-title">
+            Scheduling for a district of 100,000 students
+          </h2>
           <p className="mt-4 font-mono text-small text-muted">
             React, Node.js, GraphQL, AWS Lambda, SQS, S3, DynamoDB
           </p>
-
-          <p className="mt-8 max-w-[46ch] text-lead text-fg">
-            Full-stack scheduling for an enterprise tutoring platform. Over
-            100,000 students per district, with scheduling errors down 90%.
-          </p>
-
-          <div className="mt-6 grid gap-5 max-w-[46ch] text-body text-muted">
-            <p>
-              Report exports were the failure point. Large districts produced
-              datasets big enough that the request timed out at API Gateway
-              before the response finished, and query tuning could not reach it
-              because the gateway timeout is a platform limit rather than a slow
-              query. So exports left the request path entirely. A scheduled job
-              builds the report, writes it to S3, and the client receives a
-              pre-signed URL instead of a payload. API Gateway is no longer in
-              the data path, which is what stopped report size from being an
-              availability problem.
-            </p>
-            <p>
-              Alongside that: validation and consistency checks that block
-              conflicting or duplicate student assignments, and an admin
-              dashboard with downloadable schedule summaries.
-            </p>
-          </div>
         </Reveal>
 
-        <Reveal className="lg:col-span-7" index={1}>
-          <GraphCanvas />
-          <p className="mt-5 max-w-[52ch] text-small text-muted">
-            The export path. Reads go through the gateway to Lambda and
-            DynamoDB. Exports queue through SQS to S3, and S3 hands the client a
-            pre-signed URL directly.
-          </p>
-        </Reveal>
+        <div className="mt-14">
+          <ScrollSteps
+            sceneClass="scene-sched"
+            figure={<Figure />}
+            steps={[
+              {
+                title: "A scheduling system under enterprise load.",
+                body: (
+                  <>
+                    <p>
+                      Full-stack scheduling for an enterprise tutoring
+                      platform: over 100,000 students per district, every one
+                      of them needing conflict-free assignments. Validation and
+                      consistency checks block conflicting or duplicate
+                      placements before they ever reach the database.
+                    </p>
+                    <p>The diagram on the left is the real pipeline.</p>
+                  </>
+                ),
+              },
+              {
+                title: "Then report exports started timing out.",
+                body: (
+                  <p>
+                    Large districts produced datasets big enough that the
+                    request died at API Gateway before the response finished.
+                    No query tuning could fix it, because the gateway timeout
+                    is a platform limit, not a slow query. The failure lived in
+                    the architecture, not the code.
+                  </p>
+                ),
+              },
+              {
+                title: "So exports left the request path entirely.",
+                body: (
+                  <>
+                    <p>
+                      A scheduled job builds the report and writes it to S3,
+                      and the client receives a pre-signed URL instead of a
+                      payload. API Gateway is no longer in the data path.
+                    </p>
+                    <p>
+                      That is what stopped report size from being an
+                      availability problem: the thing that timed out is no
+                      longer asked to carry the data.
+                    </p>
+                  </>
+                ),
+              },
+              {
+                title: "Shipped, stamped, in production.",
+                body: (
+                  <p>
+                    Alongside the pipeline: an admin dashboard with
+                    downloadable schedule summaries, and the consistency layer
+                    that took scheduling errors down 90%.
+                  </p>
+                ),
+              },
+            ]}
+          />
+        </div>
       </div>
     </section>
   );

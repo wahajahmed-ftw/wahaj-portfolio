@@ -1,3 +1,4 @@
+import { GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react/dist/ssr";
 import { CTA, site } from "@/lib/site";
 
 const links = [
@@ -8,22 +9,20 @@ const links = [
 
 export function Nav() {
   return (
-    <header className="fixed inset-x-0 top-0 z-40">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-line/80 bg-paper/80 backdrop-blur-md">
       <div className="shell flex h-16 items-center justify-between">
-        <a
-          href="#top"
-          className="text-small font-medium tracking-[-0.01em] text-fg"
-        >
+        <a href="#top" className="font-display text-[1.05rem] font-bold tracking-[-0.01em]">
           {site.name}
+          <span className="text-red">.</span>
         </a>
 
-        <nav className="flex items-center gap-7">
-          <ul className="hidden items-center gap-7 sm:flex">
+        <nav className="flex items-center gap-3 sm:gap-5">
+          <ul className="hidden items-center gap-6 sm:flex">
             {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-small text-muted transition-colors duration-200 hover:text-fg"
+                  className="text-small font-medium text-muted transition-colors duration-150 hover:text-ink"
                 >
                   {link.label}
                 </a>
@@ -31,15 +30,28 @@ export function Nav() {
             ))}
           </ul>
           <a
-            href={`mailto:${site.email}`}
-            className="rounded-edge border border-line px-3.5 py-1.5 text-small text-fg transition-colors duration-200 hover:border-muted"
+            href={site.github}
+            aria-label="GitHub"
+            className="icon-btn hidden md:inline-flex"
+            target="_blank"
+            rel="noopener noreferrer"
           >
+            <GithubLogoIcon size={19} />
+          </a>
+          <a
+            href={site.linkedin}
+            aria-label="LinkedIn"
+            className="icon-btn hidden md:inline-flex"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <LinkedinLogoIcon size={19} />
+          </a>
+          <a href={`mailto:${site.email}`} className="btn btn-primary">
             {CTA}
           </a>
         </nav>
       </div>
-      {/* Scrim rather than a solid bar, so the hero canvas stays full bleed. */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-24 bg-gradient-to-b from-bg via-bg/70 to-transparent" />
     </header>
   );
 }

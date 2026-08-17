@@ -5,7 +5,6 @@ export const alt = site.title;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Prerendered at build time, so the card is a static asset at request time.
 export default function OpengraphImage() {
   return new ImageResponse(
     (
@@ -16,39 +15,58 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
-          background: "#0a0a0b",
-          padding: 80,
+          background: "#fafaf8",
+          padding: 84,
+          position: "relative",
         }}
       >
         <div
           style={{
-            fontSize: 96,
-            letterSpacing: "-0.04em",
-            color: "#ededee",
-            lineHeight: 1,
+            position: "absolute",
+            top: 64,
+            right: 84,
+            border: "6px solid #d8401f",
+            borderRadius: 10,
+            color: "#d8401f",
+            fontSize: 26,
+            fontWeight: 700,
+            letterSpacing: 2,
+            padding: "12px 20px",
+            transform: "rotate(-6deg)",
+            textTransform: "uppercase",
           }}
         >
-          {site.name}
+          Holds up at 100K+ users
         </div>
         <div
           style={{
-            marginTop: 28,
+            fontSize: 104,
+            fontWeight: 800,
+            letterSpacing: "-0.03em",
+            color: "#15171c",
+            lineHeight: 1,
+          }}
+        >
+          Wahaj Ahmed
+        </div>
+        <div
+          style={{
+            marginTop: 26,
             fontSize: 34,
-            letterSpacing: "-0.01em",
-            color: "#8a8a8d",
-            maxWidth: 880,
+            color: "#565b64",
+            maxWidth: 900,
             lineHeight: 1.35,
           }}
         >
-          Full-stack engineer. I build React and Node systems that hold up past
-          100,000 users.
+          Full-stack engineer. React and Node systems, drawn on paper, proven
+          in production.
         </div>
         <div
           style={{
             marginTop: 44,
-            height: 1,
+            height: 4,
             width: "100%",
-            background: "#1e1e21",
+            background: "#2b49cf",
           }}
         />
       </div>

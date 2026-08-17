@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -15,6 +15,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
 });
+
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  // optional: on a slow first visit the fallback stays, so the headline never
+  // repaints late and LCP stays at first paint. Repeat visits hit the cache.
+  display: "optional",
+});
+
+export const viewport: Viewport = {
+  themeColor: "#fafaf8",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -42,6 +54,7 @@ const personSchema = {
   jobTitle: "Full-stack engineer",
   email: `mailto:${site.email}`,
   url: site.url,
+  sameAs: [site.github, site.linkedin],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Islamabad",
@@ -63,7 +76,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} antialiased`}
     >
       <body>
         <SmoothScroll />
