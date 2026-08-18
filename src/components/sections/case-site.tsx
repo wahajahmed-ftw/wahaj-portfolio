@@ -14,7 +14,7 @@ export function CaseSite() {
       <div id="site" className="shell scroll-mt-24">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <Reveal>
-            <p className="font-mono text-small text-blue">case file 04</p>
+            <p className="font-mono text-small text-blue">case file 06</p>
             <h2 className="mt-2 max-w-[14ch] text-title">
               Exhibit A: this website
             </h2>

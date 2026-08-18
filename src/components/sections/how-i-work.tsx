@@ -9,16 +9,17 @@ const practices = [
   {
     lead: "One response shape, one middleware path.",
     body: "Standardized API responses and reusable middleware for auth, validation, and errors. Consumers stop writing a special case for every route.",
-    proof: { href: "#lib", label: "see: case file 03" },
+    proof: { href: "#lib", label: "see: case file 05" },
   },
   {
     lead: "Logs you can query, not grep.",
     body: "Structured logging with request correlation, so an incident starts from a query instead of a guess. Cheapest item on this list, biggest cut to resolution time.",
+    proof: { href: "#incident", label: "see: case file 02" },
   },
   {
     lead: "Own it to production.",
     body: "Design through deployment, including the deploy. Running the thing in production changes the decisions you make while building it.",
-    proof: { href: "#site", label: "see: case file 04" },
+    proof: { href: "#site", label: "see: case file 06" },
   },
 ];
 

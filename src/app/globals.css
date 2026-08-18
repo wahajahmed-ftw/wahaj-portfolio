@@ -820,82 +820,146 @@ kbd {
   rotate: -5deg;
 }
 
-/* Performance: before -> after -> stamped */
-.scene-perf .bar {
-  transform: scaleX(var(--before));
-  transform-origin: left center;
-  transition: transform 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+/* Incident: symptom -> silent failure -> root cause -> paid and prevented */
+.scene-inc .inc-e {
+  opacity: 0.14;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: opacity 0.4s ease-out;
 }
-.scene-perf .bar-after {
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.9s cubic-bezier(0.19, 1, 0.22, 1) 0.08s;
+.scene-inc[data-step="1"] :is(.inc-e1, .inc-e2),
+.scene-inc[data-step="2"] :is(.inc-e1, .inc-e2),
+.scene-inc[data-step="3"] :is(.inc-e1, .inc-e2) {
+  opacity: 1;
+  stroke-dashoffset: 0;
+  transition:
+    opacity 0.4s ease-out,
+    stroke-dashoffset 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
-.scene-perf[data-step="1"] .bar,
-.scene-perf[data-step="2"] .bar {
-  transform: scaleX(var(--after));
+.scene-inc[data-step="2"] .inc-e3,
+.scene-inc[data-step="3"] .inc-e3 {
+  opacity: 1;
+  stroke-dashoffset: 0;
+  transition:
+    opacity 0.4s ease-out,
+    stroke-dashoffset 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
-.scene-perf[data-step="1"] .bar-after,
-.scene-perf[data-step="2"] .bar-after {
-  transform: scaleX(var(--after));
+.scene-inc .inc-void,
+.scene-inc .inc-tray,
+.scene-inc .inc-gauge {
+  opacity: 0;
+  transition: opacity 0.45s ease-out;
 }
-.scene-perf .num-before {
-  transition: opacity 0.4s ease-out, transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+.scene-inc[data-step="1"] .inc-void {
+  opacity: 1;
 }
-.scene-perf .num-after-value {
-  /* 3.6:1 on paper: passes for text this large, still reads as waiting. */
-  color: #81868f;
-  transition: color 0.4s ease-out;
+.scene-inc[data-step="2"] :is(.inc-tray, .inc-gauge),
+.scene-inc[data-step="3"] :is(.inc-tray, .inc-gauge) {
+  opacity: 1;
 }
-.scene-perf[data-step="1"] .num-before,
-.scene-perf[data-step="2"] .num-before {
-  opacity: 0.34;
+@media (prefers-reduced-motion: no-preference) {
+  .scene-inc[data-step="1"] .inc-drop,
+  .scene-inc[data-step="2"] .inc-drop,
+  .scene-inc[data-step="3"] .inc-drop {
+    animation: inc-fall 1.5s ease-in infinite;
+  }
 }
-.scene-perf[data-step="1"] .num-before .strike,
-.scene-perf[data-step="2"] .num-before .strike {
-  transform: scaleX(1);
+@keyframes inc-fall {
+  0% {
+    translate: 0px 0px;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    translate: 0px 26px;
+    opacity: 0;
+  }
 }
-.scene-perf .strike {
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1) 0.15s;
+.scene-inc .inc-fill {
+  transform-origin: bottom center;
+  transform-box: fill-box;
+  transform: scaleY(1);
+  transition:
+    transform 0.7s cubic-bezier(0.19, 1, 0.22, 1),
+    fill 0.4s ease-out;
 }
-.scene-perf[data-step="1"] .num-after-value,
-.scene-perf[data-step="2"] .num-after-value {
-  color: var(--color-ink);
+.scene-inc[data-step="3"] .inc-fill {
+  transform: scaleY(0.55);
+  fill: var(--color-blue);
 }
-.scene-perf[data-step="2"] .scene-stamp {
+.scene-inc[data-step="1"] .t-silent {
+  opacity: 1;
+}
+.scene-inc[data-step="2"] .t-cause,
+.scene-inc[data-step="3"] .t-cause {
+  opacity: 1;
+}
+.scene-inc[data-step="3"] .t-fix {
+  opacity: 1;
+}
+.scene-inc[data-step="3"] .scene-stamp {
   opacity: 1;
   scale: 1;
   rotate: -5deg;
 }
 
-/* Library: six duplicates -> one stack -> stamped */
-.scene-lib .blk {
-  transition: transform 0.85s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.6s ease-out;
-  transform: translate(var(--sx), var(--sy));
+/* Channel Dynamics: push lane -> pull lane -> stamped */
+.scene-cd .cd-e,
+.scene-cd .cd-dots-a,
+.scene-cd .cd-dots-b,
+.scene-cd .cd-bars {
+  opacity: 0.14;
+  transition: opacity 0.5s ease-out;
 }
-.scene-lib[data-step="1"] .blk,
-.scene-lib[data-step="2"] .blk {
-  transform: translate(var(--tx), var(--ty));
+.scene-cd .cd-e {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
 }
-.scene-lib .t-dup {
-  transition: opacity 0.4s ease-out;
+.scene-cd[data-step="1"] .cd-ea,
+.scene-cd[data-step="2"] .cd-ea,
+.scene-cd[data-step="3"] .cd-ea {
+  opacity: 1;
+  stroke-dashoffset: 0;
+  transition:
+    opacity 0.4s ease-out,
+    stroke-dashoffset 1.1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.scene-cd[data-step="1"] .cd-dots-a,
+.scene-cd[data-step="2"] .cd-dots-a,
+.scene-cd[data-step="3"] .cd-dots-a {
   opacity: 1;
 }
-.scene-lib[data-step="1"] .t-dup,
-.scene-lib[data-step="2"] .t-dup {
-  opacity: 0;
-}
-.scene-lib .t-one {
-  opacity: 0;
-  transition: opacity 0.4s ease-out 0.5s;
-}
-.scene-lib[data-step="1"] .t-one,
-.scene-lib[data-step="2"] .t-one {
+.scene-cd[data-step="1"] .t-fan,
+.scene-cd[data-step="2"] .t-fan {
   opacity: 1;
 }
-.scene-lib[data-step="2"] .scene-stamp {
+.scene-cd[data-step="1"] .t-inbox,
+.scene-cd[data-step="2"] .t-inbox,
+.scene-cd[data-step="3"] .t-inbox {
+  opacity: 1;
+}
+.scene-cd[data-step="2"] .cd-eb,
+.scene-cd[data-step="3"] .cd-eb {
+  opacity: 1;
+  stroke-dashoffset: 0;
+  transition:
+    opacity 0.4s ease-out,
+    stroke-dashoffset 1.1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.scene-cd[data-step="2"] :is(.cd-dots-b, .cd-bars),
+.scene-cd[data-step="3"] :is(.cd-dots-b, .cd-bars) {
+  opacity: 1;
+}
+.scene-cd[data-step="2"] .t-ent,
+.scene-cd[data-step="3"] .t-ent {
+  opacity: 1;
+}
+.scene-cd[data-step="3"] .scene-stamp {
   opacity: 1;
   scale: 1;
   rotate: -5deg;

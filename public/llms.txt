@@ -36,6 +36,37 @@ Also built validation and consistency checks that block conflicting or
 duplicate student assignments, plus an admin dashboard with downloadable
 schedule summaries.
 
+### Thirty unpaid teachers: an incident report
+Node.js, AWS Lambda, DynamoDB, New Relic.
+
+Around 4,500 teachers were due payment and about thirty were paid nothing:
+their earnings attribute was never written, with no error anywhere. The trace
+led to an update function that completed without writing. The real lesson was
+that there was no process-level error capture, so the failure had nowhere to
+land. Capture went in first; the next run revealed DynamoDB throttling writes
+because the index's provisioned capacity was too low for payday load. The
+thirty were paid manually, verified against the sheet, and the provisioning
+was raised. The prevention that stayed: errors captured where they happen and
+logs that mean something.
+
+### AI in production for institutional investors
+Next.js, Supabase, Trigger.dev, Claude Haiku, MCP.
+
+Client work for Channel Dynamics, a market-intelligence platform for
+institutional investors: the public site, the portal's analytics filtering,
+and the observability wiring.
+
+A weekly Trigger.dev job fans out into parallel tasks and compiles leadership
+metrics into charts with one-line AI summaries, written by Claude Haiku on
+purpose: one-liners do not need a frontier model. About a dozen leadership
+inboxes, weekly.
+
+A production MCP server, just launched, puts the published research inside
+the customer's own Claude: seven tools to list, fetch, and semantically
+search reports. Entitlements are the hard part: a company-level flag,
+sector-level report entitlement, and per-user checks, with OAuth tied to the
+customer's real account.
+
 ### Cutting first render in half
 React, TanStack Query, code splitting.
 
@@ -70,9 +101,9 @@ design through deployment.
 
 Languages: TypeScript, JavaScript, Python, Java, SQL
 Frontend: Next.js, React, TanStack Query, Tailwind, shadcn/ui, Storybook
-Backend: Node.js, Express, GraphQL, Spring Boot, Flask, Django, REST, microservices
+Backend: Node.js, Express, GraphQL, Spring Boot, Flask, Django, REST, microservices, MCP, Claude API
 Data: PostgreSQL, Supabase, MongoDB, MySQL, DynamoDB, Prisma, Mongoose
-Infra: AWS (Lambda, SQS, S3), Jenkins, SonarQube, Vercel, Render
+Infra: AWS (Lambda, SQS, S3), Trigger.dev, Jenkins, SonarQube, Vercel, Render
 Auth: JWT, Clerk
 
 ## Availability

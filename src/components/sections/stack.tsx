@@ -68,6 +68,8 @@ const layers: { layer: string; items: Item[] }[] = [
       { name: "Django", icon: siDjango },
       { name: "REST" },
       { name: "Microservices" },
+      { name: "MCP" },
+      { name: "Claude API" },
     ],
   },
   {
@@ -88,6 +90,7 @@ const layers: { layer: string; items: Item[] }[] = [
       { name: "AWS Lambda" },
       { name: "SQS" },
       { name: "S3" },
+      { name: "Trigger.dev" },
       { name: "Jenkins", icon: siJenkins },
       { name: "SonarQube", icon: siSonarqubeserver },
       { name: "Vercel", icon: siVercel },

@@ -2,8 +2,9 @@ import { Nav } from "@/components/nav";
 import { Hero } from "@/components/sections/hero";
 import { Impact } from "@/components/sections/impact";
 import { CaseScheduling } from "@/components/sections/case-scheduling";
-import { CasePerformance } from "@/components/sections/case-performance";
-import { CaseComponents } from "@/components/sections/case-components";
+import { CaseIncident } from "@/components/sections/case-incident";
+import { CaseChannelDynamics } from "@/components/sections/case-channel-dynamics";
+import { QuickFiles } from "@/components/sections/quick-files";
 import { CaseSite } from "@/components/sections/case-site";
 import { HowIWork } from "@/components/sections/how-i-work";
 import { Stack } from "@/components/sections/stack";
@@ -18,8 +19,9 @@ export default function Home() {
         <Hero />
         <Impact />
         <CaseScheduling />
-        <CasePerformance />
-        <CaseComponents />
+        <CaseIncident />
+        <CaseChannelDynamics />
+        <QuickFiles />
         <CaseSite />
         <HowIWork />
         <Stack />
