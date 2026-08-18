@@ -3,9 +3,9 @@ import { Reveal } from "@/components/reveal";
 // Filled in from the final Lighthouse run before shipping. Keep honest.
 const receipts = [
   { value: "100", label: "Lighthouse performance, desktop. 96 mobile" },
-  { value: "0", label: "cumulative layout shift" },
-  { value: "0ms", label: "total blocking time" },
-  { value: "100%", label: "static, prerendered at build" },
+  { value: "0ms", label: "total blocking time, zero layout shift" },
+  { value: "100%", label: "static, prerendered at build. No server in the path" },
+  { value: "0", label: "canvas libraries. Every diagram is hand-projected SVG" },
 ];
 
 export function CaseSite() {
@@ -23,12 +23,13 @@ export function CaseSite() {
                 A portfolio that claims performance numbers has to be fast, or
                 the claim is dead on arrival. So this site is built the way I
                 build for clients: fully static, self-hosted fonts, zero
-                blocking scripts, and every diagram is hand-projected SVG
-                instead of a canvas library.
+                blocking scripts.
               </p>
               <p>
-                Open the devtools. The numbers on the right are from this
-                page, measured the same way I measured the 3.5s app.
+                Case file 04 is what I do to someone else&apos;s slow app.
+                This is what ships when I start from zero: these receipts are
+                from this page, measured the same way I measured the 3.5s
+                app. Open the devtools.
               </p>
             </div>
           </Reveal>
