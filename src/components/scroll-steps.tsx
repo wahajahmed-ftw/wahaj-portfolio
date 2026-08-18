@@ -73,7 +73,7 @@ export function ScrollSteps({
         vis = new IntersectionObserver(
           ([entry]) => {
             if (entry.isIntersecting && timer === null) {
-              timer = window.setInterval(() => setStep((s) => (s + 1) % count), 3000);
+              timer = window.setInterval(() => setStep((s) => (s + 1) % count), 2200);
             } else if (!entry.isIntersecting && timer !== null) {
               clearInterval(timer);
               timer = null;
