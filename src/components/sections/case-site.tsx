@@ -1,6 +1,4 @@
-import { ArrowUpRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "@/components/reveal";
-import { site } from "@/lib/site";
 
 // Filled in from the final Lighthouse run before shipping. Keep honest.
 const receipts = [
@@ -33,15 +31,6 @@ export function CaseSite() {
                 page, measured the same way I measured the 3.5s app.
               </p>
             </div>
-            <a
-              href={site.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-secondary mt-8"
-            >
-              Code on GitHub
-              <ArrowUpRightIcon size={15} weight="bold" />
-            </a>
           </Reveal>
 
           <Reveal index={1}>
