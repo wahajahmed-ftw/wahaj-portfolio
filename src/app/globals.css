@@ -724,6 +724,14 @@ kbd {
   }
 }
 
+/* Off-screen, the figure's loops are parked: Tilt stamps data-off on the
+   wrapper when it leaves the viewport, and every animation inside pauses.
+   The scroll-driven fold on .hero-fig itself is untouched. */
+.hero-fig[data-off] .stack-iso *,
+.hero-fig[data-off] .stack-iso {
+  animation-play-state: paused;
+}
+
 /* Hover inspection: the layer under the pointer lifts, everything else
    steps back. Hover-capable pointers only. */
 @media (hover: hover) {
