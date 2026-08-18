@@ -11,9 +11,16 @@ export function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-line/80 bg-paper/80 backdrop-blur-md">
       <div className="shell flex h-16 items-center justify-between">
-        <a href="#top" className="font-display text-[1.05rem] font-bold tracking-[-0.01em]">
-          {site.name}
-          <span className="text-red">.</span>
+        <a href="#top" aria-label="Wahaj Ahmed, back to top" className="flex items-center gap-2.5">
+          {/* The favicon cube, at nav scale. The name itself lives in the hero. */}
+          <svg viewBox="10 8 44 46" className="h-6 w-6" aria-hidden="true">
+            <polygon points="32,12 50,22 32,32 14,22" fill="#ffffff" stroke="var(--color-ink)" strokeWidth="3" strokeLinejoin="round" />
+            <polygon points="32,32 50,22 50,40 32,50" fill="#c7d2f5" stroke="var(--color-ink)" strokeWidth="3" strokeLinejoin="round" />
+            <polygon points="14,22 32,32 32,50 14,40" fill="#e3e9fc" stroke="var(--color-ink)" strokeWidth="3" strokeLinejoin="round" />
+          </svg>
+          <span className="font-display text-[1.1rem] font-bold tracking-[-0.01em]">
+            wa<span className="text-red">.</span>
+          </span>
         </a>
 
         <nav className="flex items-center gap-3 sm:gap-5">
