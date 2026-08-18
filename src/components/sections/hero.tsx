@@ -8,6 +8,12 @@ import { StackIso } from "@/components/stack-iso";
 import { Tilt } from "@/components/tilt";
 import { CTA, site } from "@/lib/site";
 
+const facts = [
+  "islamabad, utc+5",
+  "~5h overlap with CET",
+  "open to roles and freelance",
+];
+
 const rise = (d: number) => ({ "--rise-d": `${d}s` }) as CSSProperties;
 
 export function Hero() {
@@ -15,7 +21,7 @@ export function Hero() {
     // No overflow-hidden here: it would make this section a scroll
     // container, and the .hero-fig view() timeline must resolve against
     // the root scroller for the fold handoff to run.
-    <section id="top" className="relative flex min-h-[100dvh] items-center pt-24 pb-14">
+    <section id="top" className="relative flex min-h-[92svh] items-center pt-24 pb-14">
       <div className="shell grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
         <div>
           <p className="rise font-mono text-small text-blue" style={rise(0.05)}>
@@ -61,7 +67,19 @@ export function Hero() {
             </a>
           </div>
 
-          <div className="rise mt-9 flex items-center gap-3" style={rise(0.3)}>
+          <ul
+            className="rise mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-small text-muted"
+            style={rise(0.26)}
+          >
+            {facts.map((fact, i) => (
+              <li key={fact} className="flex items-center gap-3">
+                {i > 0 && <span aria-hidden className="text-line">/</span>}
+                {fact}
+              </li>
+            ))}
+          </ul>
+
+          <div className="rise mt-8 flex items-center gap-3" style={rise(0.34)}>
             <a href={site.linkedin} aria-label="LinkedIn" className="icon-btn" target="_blank" rel="noopener noreferrer">
               <LinkedinLogoIcon size={19} />
             </a>

@@ -1,5 +1,6 @@
 import { Nav } from "@/components/nav";
 import { Hero } from "@/components/sections/hero";
+import { WhatIBuild } from "@/components/sections/what-i-build";
 import { CaseScheduling } from "@/components/sections/case-scheduling";
 import { CaseIncident } from "@/components/sections/case-incident";
 import { CaseChannelDynamics } from "@/components/sections/case-channel-dynamics";
@@ -16,6 +17,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <WhatIBuild />
         <CaseScheduling />
         <CaseIncident />
         <CaseChannelDynamics />

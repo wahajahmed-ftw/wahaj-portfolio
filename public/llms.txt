@@ -6,6 +6,29 @@ systems that hold up past 100,000 users.
 Contact: wahajahmed55@live.com
 LinkedIn: https://www.linkedin.com/in/wahajahmed-ftw/
 
+## What I build
+
+Full-stack product engineering: React, Next.js, Node.js, Express,
+TypeScript. GraphQL and REST behind explicit contracts, admin dashboards
+and internal tooling, shared component libraries, PostgreSQL, Supabase,
+DynamoDB, Prisma.
+
+AI that reaches production (core focus): MCP servers putting internal
+data inside the customer's Claude, OAuth with company, sector and
+per-user entitlement checks, long-running work moved onto queues,
+scheduled LLM pipelines that fan out and converge, models sized to the
+job rather than the headline.
+
+Cloud and infrastructure: AWS Lambda, SQS, S3, DynamoDB. Scheduled
+pipelines and pre-signed URL delivery, structured logging with request
+correlation, observability with New Relic and Dash0, CI with Jenkins and
+SonarQube, deploys on Vercel.
+
+Performance and reliability: route-level code splitting and lazy
+loading, cache and invalidation strategy with TanStack Query, Core Web
+Vitals and Lighthouse work, incident investigation down to root cause,
+throughput and capacity tuning.
+
 ## Outcomes
 
 - 100,000+ students per district served by a scheduling platform, with

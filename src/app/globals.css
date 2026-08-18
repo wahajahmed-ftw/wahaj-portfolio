@@ -22,7 +22,7 @@
   --color-bandmuted: #9ba0ab;
 
   /* Type scale. Display is Bricolage, tracking tightens as size grows. */
-  --text-display: clamp(2.9rem, 1.6rem + 5.4vw, 5.6rem);
+  --text-display: clamp(2.9rem, 1.5rem + 6.4vw, 6.6rem);
   --text-display--line-height: 0.98;
   --text-display--letter-spacing: -0.032em;
   --text-display--font-weight: 800;
