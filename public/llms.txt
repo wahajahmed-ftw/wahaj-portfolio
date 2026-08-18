@@ -69,7 +69,7 @@ design through deployment.
 ## Stack
 
 Languages: TypeScript, JavaScript, Python, Java, SQL
-Frontend: Next.js, React, React Native, TanStack Query, Tailwind, shadcn/ui, Storybook
+Frontend: Next.js, React, TanStack Query, Tailwind, shadcn/ui, Storybook
 Backend: Node.js, Express, GraphQL, Spring Boot, Flask, Django, REST, microservices
 Data: PostgreSQL, Supabase, MongoDB, MySQL, DynamoDB, Prisma, Mongoose
 Infra: AWS (Lambda, SQS, S3), Jenkins, SonarQube, Vercel, Render

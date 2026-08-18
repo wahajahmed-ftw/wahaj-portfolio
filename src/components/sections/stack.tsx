@@ -50,7 +50,6 @@ const layers: { layer: string; items: Item[] }[] = [
     items: [
       { name: "Next.js", icon: siNextdotjs },
       { name: "React", icon: siReact },
-      { name: "React Native", icon: siReact },
       { name: "TanStack Query", icon: siReactquery },
       { name: "Tailwind", icon: siTailwindcss },
       { name: "Chakra UI", icon: siChakraui },
