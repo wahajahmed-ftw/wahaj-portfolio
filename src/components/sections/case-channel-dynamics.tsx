@@ -23,19 +23,20 @@ export function CaseChannelDynamics() {
   return (
     <section className="py-section">
       <div className="shell">
-        <Reveal>
-          <p className="font-mono text-small text-blue">case file 03</p>
-          <h2 className="mt-2 max-w-[20ch] text-title">
-            AI in production for institutional investors
-          </h2>
-          <p className="mt-4 font-mono text-small text-muted">
-            Next.js, Supabase, Trigger.dev, Claude Haiku, MCP
-          </p>
-        </Reveal>
-
-        <div className="mt-14">
+        <div>
           <ScrollSteps
             sceneClass="scene-cd"
+            header={
+            <Reveal>
+              <p className="font-mono text-small text-blue">case file 03</p>
+              <h2 className="mt-2 max-w-[20ch] text-title">
+                AI in production for institutional investors
+              </h2>
+              <p className="mt-4 font-mono text-small text-muted">
+                Next.js, Supabase, Trigger.dev, Claude Haiku, MCP
+              </p>
+            </Reveal>
+            }
             figure={<Figure />}
             steps={[
               {

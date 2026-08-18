@@ -21,20 +21,21 @@ export function CaseIncident() {
   return (
     <section className="bg-band py-section text-paper">
       <div id="incident" className="shell scroll-mt-24">
-        <Reveal>
-          <p className="font-mono text-small text-bluesoft">case file 02: incident report</p>
-          <h2 className="mt-2 max-w-[20ch] text-title text-paper">
-            Payday, minus thirty teachers
-          </h2>
-          <p className="mt-4 font-mono text-small text-bandmuted">
-            Node.js, AWS Lambda, DynamoDB, New Relic
-          </p>
-        </Reveal>
-
-        <div className="mt-14">
+        <div>
           <ScrollSteps
             tone="band"
             sceneClass="scene-inc"
+            header={
+            <Reveal>
+              <p className="font-mono text-small text-bluesoft">case file 02: incident report</p>
+              <h2 className="mt-2 max-w-[20ch] text-title text-paper">
+                Payday, minus thirty teachers
+              </h2>
+              <p className="mt-4 font-mono text-small text-bandmuted">
+                Node.js, AWS Lambda, DynamoDB, New Relic
+              </p>
+            </Reveal>
+            }
             figure={<Figure />}
             steps={[
               {

@@ -19,19 +19,20 @@ export function CaseScheduling() {
   return (
     <section className="border-t border-line py-section">
       <div id="work" className="shell scroll-mt-24">
-        <Reveal>
-          <p className="font-mono text-small text-blue">case file 01</p>
-          <h2 className="mt-2 max-w-[16ch] text-title">
-            Scheduling for a district of 100,000 students
-          </h2>
-          <p className="mt-4 font-mono text-small text-muted">
-            React, Node.js, GraphQL, AWS Lambda, SQS, S3, DynamoDB
-          </p>
-        </Reveal>
-
-        <div className="mt-14">
+        <div>
           <ScrollSteps
             sceneClass="scene-sched"
+            header={
+            <Reveal>
+              <p className="font-mono text-small text-blue">case file 01</p>
+              <h2 className="mt-2 max-w-[16ch] text-title">
+                Scheduling for a district of 100,000 students
+              </h2>
+              <p className="mt-4 font-mono text-small text-muted">
+                React, Node.js, GraphQL, AWS Lambda, SQS, S3, DynamoDB
+              </p>
+            </Reveal>
+            }
             figure={<Figure />}
             steps={[
               {

@@ -17,11 +17,14 @@ type Step = { title: string; body: ReactNode };
  */
 export function ScrollSteps({
   sceneClass,
+  header,
   figure,
   steps,
   tone = "paper",
 }: {
   sceneClass: string;
+  /** Kicker + title block; rides in the sticky column so the case stays named while its steps scroll. */
+  header?: ReactNode;
   figure: ReactNode;
   steps: Step[];
   tone?: "paper" | "band";
@@ -96,7 +99,10 @@ export function ScrollSteps({
   return (
     <div ref={rootRef} className={sceneClass} data-step={step}>
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
-        <div className="lg:sticky lg:top-24 lg:self-start">{figure}</div>
+        <div className="lg:sticky lg:top-24 lg:self-start">
+          {header ? <div className="mb-10">{header}</div> : null}
+          {figure}
+        </div>
         <div>
           {steps.map((s, i) => (
             <div
