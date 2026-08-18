@@ -35,10 +35,12 @@ const allPts = [
   ...NODES.flatMap((n) => isoBox(n.u, n.v, n.w, n.d, n.h).corners),
   px(SHEETS.u, SHEETS.v),
   px(SHEETS.u + SHEETS.w, SHEETS.v + SHEETS.d),
+  px(SHEETS.u, SHEETS.v + SHEETS.d),
+  px(SHEETS.u + SHEETS.w, SHEETS.v),
   { x: px(DB.u, DB.v).x - DB.r * ERX, y: px(DB.u, DB.v).y - (DB.h + 0.2) * S },
   { x: px(DB.u, DB.v).x + DB.r * ERX + 46, y: px(DB.u, DB.v).y + 26 },
 ];
-const PAD = { l: 30, r: 30, t: 44, b: 64 };
+const PAD = { l: 30, r: 30, t: 28, b: 18 };
 const minX = Math.min(...allPts.map((p) => p.x)) - PAD.l;
 const maxX = Math.max(...allPts.map((p) => p.x)) + PAD.r;
 const minY = Math.min(...allPts.map((p) => p.y)) - PAD.t;
@@ -187,7 +189,7 @@ export function IncidentIso() {
         <text className="scene-note t-silent" x={dropX - 118} y={dropY + 52} fill="var(--color-red)" fontWeight="700">
           no error capture: failures vanish
         </text>
-        <text className="scene-note t-cause" x={gaugeX - 128} y={gaugeTop - 16} fill="var(--color-red)" fontWeight="700">
+        <text className="scene-note t-cause" x={gaugeX - 140} y={gaugeTop - 16} fill="var(--color-red)" fontWeight="700">
           throttled: provisioned capacity
         </text>
         <text className="scene-note t-fix" x={gaugeX - 96} y={gaugeTop + 62} fill="var(--color-blue)">
