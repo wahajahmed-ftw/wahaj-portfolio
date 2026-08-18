@@ -1,9 +1,14 @@
+import type { CSSProperties } from "react";
 import { isoBox, px, S } from "@/lib/iso";
 
 /**
  * The full stack, exploded: three floating isometric planes (UI, services,
  * data) with requests dropping through them. The hero visual says
  * "full-stack" without a word of copy. Abstract blocks only, no fake UI.
+ *
+ * The figure performs its own caption: it arrives assembled and explodes
+ * apart on load (CSS keyframes on the layer groups), and each layer lifts
+ * on hover while the others dim. All server-rendered; motion is pure CSS.
  */
 
 const Z_UI = 4.0;
@@ -70,11 +75,16 @@ function Box({ s }: { s: Slab }) {
   );
 }
 
-const LAYER_LABELS = [
-  { z: Z_UI, name: "UI", tech: "React, Next.js" },
-  { z: Z_SVC, name: "services", tech: "Node, GraphQL" },
-  { z: Z_DATA, name: "data", tech: "Postgres, S3" },
-];
+// Paint order data -> services -> UI matches z order, so overlap stays
+// correct with the slabs grouped per layer. `from` is where each layer sits
+// while collapsed, in z units relative to its exploded position.
+const LAYERS = [
+  { key: "data", z: Z_DATA, from: -1.1, name: "data", tech: "Postgres, S3" },
+  { key: "svc", z: Z_SVC, from: 0, name: "services", tech: "Node, GraphQL" },
+  { key: "ui", z: Z_UI, from: 1.1, name: "UI", tech: "React, Next.js" },
+] as const;
+
+const layerOf = (z: number) => (z < 1 ? "data" : z < 3 ? "svc" : "ui");
 
 export function StackIso() {
   return (
@@ -82,64 +92,54 @@ export function StackIso() {
       viewBox={`${minX.toFixed(0)} ${minY.toFixed(0)} ${(maxX - minX).toFixed(0)} ${(maxY - minY).toFixed(0)}`}
       role="img"
       aria-label="Exploded isometric view of a full stack: a UI plane above a services plane above a data plane, with requests flowing down through all three."
-      className="h-auto w-full"
+      className="stack-iso h-auto w-full"
     >
       {/* Vertical request columns, drawn first so planes overlap them */}
-      {COLUMNS.map(([u, v], i) => {
-        const p = px(u, v);
-        const yTop = p.y - (Z_UI + PLANE.h) * S;
-        const yBottom = p.y - Z_DATA * S;
-        return (
-          <path
-            key={i}
-            d={`M${p.x.toFixed(1)} ${yTop.toFixed(1)} L${p.x.toFixed(1)} ${yBottom.toFixed(1)}`}
-            stroke="var(--color-blue)"
-            strokeWidth="1.6"
-            strokeDasharray="5 5"
-            fill="none"
-          />
-        );
-      })}
-
-      {/* Planes and furniture, bottom to top so overlap is correct */}
-      {[...SLABS].sort((a, b) => a.z - b.z || a.v + a.u - (b.v + b.u)).map((s, i) => (
-        <Box key={i} s={s} />
-      ))}
-
-      {/* Requests in flight */}
-      <g className="iso-flow">
+      <g className="iso-cols">
         {COLUMNS.map(([u, v], i) => {
           const p = px(u, v);
           const yTop = p.y - (Z_UI + PLANE.h) * S;
           const yBottom = p.y - Z_DATA * S;
           return (
-            <circle key={i} r="3.4" fill="var(--color-blue)">
-              <animateMotion
-                dur="3.4s"
-                begin={`${i * 1.7}s`}
-                repeatCount="indefinite"
-                path={`M${p.x.toFixed(1)} ${yTop.toFixed(1)} L${p.x.toFixed(1)} ${yBottom.toFixed(1)}`}
-              />
-            </circle>
+            <path
+              key={i}
+              d={`M${p.x.toFixed(1)} ${yTop.toFixed(1)} L${p.x.toFixed(1)} ${yBottom.toFixed(1)}`}
+              stroke="var(--color-blue)"
+              strokeWidth="1.6"
+              strokeDasharray="5 5"
+              fill="none"
+            />
           );
         })}
       </g>
 
-      {/* Layer labels, right edge, paper halo */}
-      <g
-        fontFamily="var(--font-geist-mono)"
-        stroke="#ffffff"
-        strokeWidth="3.5"
-        strokeLinejoin="round"
-        paintOrder="stroke"
-      >
-        {LAYER_LABELS.map((layer) => {
-          const edge = px(PLANE.w, PLANE.d * 0.42);
-          const y = edge.y - layer.z * S;
-          const lx = edge.x + 34;
-          return (
-            <g key={layer.name}>
+      {/* One group per layer so the whole plane moves as a unit: collapsed
+          on arrival, exploded after load, lifted on hover. Labels live
+          inside their layer so the leader tick never detaches. */}
+      {LAYERS.map((layer) => {
+        const edge = px(PLANE.w, PLANE.d * 0.42);
+        const y = edge.y - layer.z * S;
+        const lx = edge.x + 34;
+        return (
+          <g
+            key={layer.key}
+            className="iso-layer"
+            style={{ "--iso-from": `${(layer.from * S).toFixed(1)}px` } as CSSProperties}
+          >
+            {SLABS.filter((s) => layerOf(s.z) === layer.key)
+              .sort((a, b) => a.z - b.z || a.v + a.u - (b.v + b.u))
+              .map((s, i) => (
+                <Box key={i} s={s} />
+              ))}
+            <g
+              fontFamily="var(--font-geist-mono)"
+              stroke="#ffffff"
+              strokeWidth="3.5"
+              strokeLinejoin="round"
+              paintOrder="stroke"
+            >
               <path
+                className="iso-tick"
                 d={`M${(edge.x + 4).toFixed(1)} ${y.toFixed(1)} L${(lx - 8).toFixed(1)} ${y.toFixed(1)}`}
                 stroke="var(--color-faint, #9aa0aa)"
                 strokeWidth="1"
@@ -153,6 +153,28 @@ export function StackIso() {
                 {layer.tech}
               </text>
             </g>
+          </g>
+        );
+      })}
+
+      {/* Requests in flight, held until the stack has opened */}
+      <g className="iso-flow">
+        {COLUMNS.map(([u, v], i) => {
+          const p = px(u, v);
+          const yTop = p.y - (Z_UI + PLANE.h) * S;
+          const yBottom = p.y - Z_DATA * S;
+          // The dot waits at the column top before its motion begins; a
+          // relative path keeps it there instead of parking it at the SVG
+          // origin, which is what an absolute path does pre-begin.
+          return (
+            <circle key={i} r="3.4" cx={p.x.toFixed(1)} cy={yTop.toFixed(1)} fill="var(--color-blue)">
+              <animateMotion
+                dur="3.4s"
+                begin={`${(2.0 + i * 1.7).toFixed(1)}s`}
+                repeatCount="indefinite"
+                path={`M0 0 L0 ${(yBottom - yTop).toFixed(1)}`}
+              />
+            </circle>
           );
         })}
       </g>

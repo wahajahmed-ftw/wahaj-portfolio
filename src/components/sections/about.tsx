@@ -3,7 +3,10 @@ import { Reveal } from "@/components/reveal";
 
 export function About() {
   return (
-    <section className="py-section">
+    // Shorter bottom padding than the section rhythm: About is brief, and
+    // the contact band below should enter the #about landing frame instead
+    // of dead paper.
+    <section className="pt-section pb-16 sm:pb-20">
       <div id="about" className="shell scroll-mt-24">
         <Reveal>
           <div className="grid items-start gap-12 sm:grid-cols-[16rem_1fr] sm:gap-16">

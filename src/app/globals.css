@@ -298,6 +298,59 @@ kbd {
   }
 }
 
+/* Hero stack. Arrives assembled, explodes into the exploded view, then the
+   request columns fade in and traffic starts. Layer lift rides the iso z
+   axis, which projects to pure screen y, so a translate is geometrically
+   honest. Reduced motion: the global floor below snaps all of it to the
+   final state. */
+.stack-iso .iso-layer {
+  transition:
+    transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 0.35s ease;
+}
+.stack-iso :is(.iso-cols, .iso-flow) {
+  transition: opacity 0.35s ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .stack-iso .iso-layer {
+    animation: iso-explode 1.1s cubic-bezier(0.19, 1, 0.22, 1) 0.7s backwards;
+  }
+  .stack-iso :is(.iso-cols, .iso-flow) {
+    animation: iso-appear 0.5s ease 1.7s backwards;
+  }
+}
+@keyframes iso-explode {
+  from {
+    transform: translateY(var(--iso-from, 0px));
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes iso-appear {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Hover inspection: the layer under the pointer lifts, everything else
+   steps back. Hover-capable pointers only. */
+@media (hover: hover) {
+  .stack-iso .iso-layer:hover {
+    transform: translateY(-8px);
+  }
+  .stack-iso:has(.iso-layer:hover) .iso-layer:not(:hover) {
+    opacity: 0.4;
+  }
+  .stack-iso:has(.iso-layer:hover) :is(.iso-cols, .iso-flow) {
+    opacity: 0.25;
+  }
+  .stack-iso .iso-layer:hover .iso-tick {
+    stroke: var(--color-blue);
+    stroke-dasharray: none;
+  }
+}
+
 /* ---------------------------------------------------------------
    Scene state machines. ScrollSteps sets data-step on the wrapper;
    everything below is plain CSS transitions off that attribute.
