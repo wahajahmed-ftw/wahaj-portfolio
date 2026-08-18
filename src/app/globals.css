@@ -56,7 +56,7 @@
   --radius-edge: 8px;
 
   --spacing-gutter: clamp(1.25rem, 4vw, 2.5rem);
-  --spacing-section: clamp(4rem, 11vw, 10rem);
+  --spacing-section: clamp(3.5rem, 7vw, 7rem);
 }
 
 @theme inline {
@@ -79,7 +79,7 @@
 /* Sections that carry their own background are separated by the colour edge
    itself, so they do not also need a full section's padding on each side. */
 @utility py-section-tinted {
-  padding-block: calc(var(--spacing-section) * 0.66);
+  padding-block: calc(var(--spacing-section) * 0.78);
 }
 
 /* Hard offset shadow, the document-on-a-desk depth cue. */
