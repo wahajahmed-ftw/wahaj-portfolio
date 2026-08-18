@@ -119,8 +119,8 @@ function Chip({ item }: { item: Item }) {
 
 export function Stack() {
   return (
-    <section id="stack" className="scroll-mt-20 py-section">
-      <div className="shell">
+    <section className="py-section">
+      <div id="stack" className="shell scroll-mt-24">
         <Reveal>
           <h2 className="text-title">The stack</h2>
           <p className="mt-4 max-w-[52ch] text-body text-muted">

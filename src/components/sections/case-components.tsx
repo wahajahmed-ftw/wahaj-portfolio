@@ -88,8 +88,8 @@ function LibraryFigure() {
 
 export function CaseComponents() {
   return (
-    <section id="lib" className="scroll-mt-20 py-section">
-      <div className="shell">
+    <section className="py-section">
+      <div id="lib" className="shell scroll-mt-24">
         <Reveal>
           <p className="font-mono text-small text-blue">case file 03</p>
           <h2 className="mt-2 max-w-[18ch] text-title">

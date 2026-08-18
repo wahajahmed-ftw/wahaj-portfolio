@@ -10,8 +10,8 @@ const receipts = [
 
 export function CaseSite() {
   return (
-    <section id="site" className="scroll-mt-20 border-y border-bluesoft bg-bluetint py-section">
-      <div className="shell">
+    <section className="border-y border-bluesoft bg-bluetint py-section">
+      <div id="site" className="shell scroll-mt-24">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <Reveal>
             <p className="font-mono text-small text-blue">case file 04</p>

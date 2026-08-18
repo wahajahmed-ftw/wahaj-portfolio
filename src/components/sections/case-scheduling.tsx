@@ -17,8 +17,8 @@ function Figure() {
 
 export function CaseScheduling() {
   return (
-    <section id="work" className="scroll-mt-20 py-section">
-      <div className="shell">
+    <section className="py-section">
+      <div id="work" className="shell scroll-mt-24">
         <Reveal>
           <p className="font-mono text-small text-blue">case file 01</p>
           <h2 className="mt-2 max-w-[16ch] text-title">

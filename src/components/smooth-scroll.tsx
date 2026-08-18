@@ -20,7 +20,7 @@ export function SmoothScroll() {
       duration: 1.05,
       easing: (t: number) => 1 - Math.pow(1 - t, 3.2),
       touchMultiplier: 1.6,
-      anchors: { offset: -76 },
+      anchors: true,
     });
     lenisStore.lenis = lenis;
 

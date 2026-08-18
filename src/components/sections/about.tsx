@@ -3,8 +3,8 @@ import { Reveal } from "@/components/reveal";
 
 export function About() {
   return (
-    <section id="about" className="scroll-mt-20 py-section">
-      <div className="shell">
+    <section className="py-section">
+      <div id="about" className="shell scroll-mt-24">
         <Reveal>
           <div className="grid items-start gap-12 sm:grid-cols-[16rem_1fr] sm:gap-16">
             <div className="relative mx-auto w-56 rotate-[-2deg] sm:mx-0 sm:w-64">
