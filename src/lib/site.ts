@@ -8,7 +8,7 @@ export const site = {
   email: "wahajahmed55@live.com",
   github: "https://github.com/wahajahmed-ftw",
   linkedin: "https://www.linkedin.com/in/wahajahmed-ftw/",
-  title: "Wahaj Ahmed, full-stack engineer",
+  title: "Wahaj Ahmed. Systems that hold up.",
   description:
     "Full-stack engineer in Islamabad. I build React and Node systems that hold up past 100,000 users.",
   url:

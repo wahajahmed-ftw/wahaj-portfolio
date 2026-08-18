@@ -12,7 +12,7 @@ const receipts = [
 
 export function CaseSite() {
   return (
-    <section className="border-y border-bluesoft bg-bluetint py-section">
+    <section id="site" className="scroll-mt-20 border-y border-bluesoft bg-bluetint py-section">
       <div className="shell">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <Reveal>

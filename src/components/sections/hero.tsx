@@ -5,7 +5,7 @@ import {
   GithubLogoIcon,
   LinkedinLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
-import { PipelineIso } from "@/components/pipeline-iso";
+import { StackIso } from "@/components/stack-iso";
 import { Tilt } from "@/components/tilt";
 import { CTA, site } from "@/lib/site";
 
@@ -75,10 +75,10 @@ export function Hero() {
         <div className="rise" style={rise(0.18)}>
           <Tilt>
             <figure className="desk-blue rounded-edge border-2 border-ink bg-white p-4 sm:p-6">
-              <PipelineIso mode="hero" />
+              <StackIso />
               <figcaption className="mt-3 border-t border-line pt-3 font-mono text-[11px] text-muted">
-                fig. 1: the export pipeline that stopped timing out. the full
-                story is one scroll below.
+                fig. 1: the full stack, exploded view. the case files below
+                are what happened inside it.
               </figcaption>
             </figure>
           </Tilt>

@@ -35,6 +35,18 @@ export function About() {
                 components are not a code problem. Both are architecture
                 answering the wrong question.
               </p>
+              <p>
+                Recent client work includes{" "}
+                <a
+                  href="https://www.channel-dynamics.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-ink underline decoration-blue decoration-2 underline-offset-4"
+                >
+                  Channel Dynamics
+                </a>
+                , a market-intelligence platform for institutional investors.
+              </p>
               <p>Based in Islamabad, working remotely with teams anywhere.</p>
             </div>
           </div>
