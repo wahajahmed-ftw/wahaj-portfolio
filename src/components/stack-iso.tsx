@@ -88,7 +88,21 @@ function Box({ s, faces = FACE }: { s: Slab; faces?: typeof FACE }) {
 }
 
 // A flat quad lying on a horizontal surface at height z.
-function Flat({ pts, z, fill, stroke }: { pts: [number, number][]; z: number; fill: string; stroke?: string }) {
+function Flat({
+  pts,
+  z,
+  fill,
+  stroke,
+  className,
+  style,
+}: {
+  pts: [number, number][];
+  z: number;
+  fill: string;
+  stroke?: string;
+  className?: string;
+  style?: CSSProperties;
+}) {
   const d =
     pts
       .map(([u, v], i) => {
@@ -96,7 +110,17 @@ function Flat({ pts, z, fill, stroke }: { pts: [number, number][]; z: number; fi
         return `${i === 0 ? "M" : "L"}${p.x.toFixed(1)} ${(p.y - z * S).toFixed(1)}`;
       })
       .join(" ") + " Z";
-  return <path d={d} fill={fill} stroke={stroke} strokeWidth={stroke ? 0.9 : undefined} strokeLinejoin="round" />;
+  return (
+    <path
+      d={d}
+      className={className}
+      style={style}
+      fill={fill}
+      stroke={stroke}
+      strokeWidth={stroke ? 0.9 : undefined}
+      strokeLinejoin="round"
+    />
+  );
 }
 
 const rect = (u: number, v: number, w: number, d: number): [number, number][] => [
@@ -176,11 +200,12 @@ function Sheets() {
 
 // Code glyph lying on the left face of a service cube: the matrix maps text
 // x onto the iso u axis and keeps verticals vertical.
-function FaceGlyph({ s, text }: { s: Slab; text: string }) {
+function FaceGlyph({ s, text, className }: { s: Slab; text: string; className?: string }) {
   const c = px(s.u + s.w / 2, s.v + s.d);
   const y = c.y - (s.z + s.h / 2) * S;
   return (
     <text
+      className={className}
       transform={`matrix(0.866 0.5 0 1 ${c.x.toFixed(1)} ${y.toFixed(1)})`}
       textAnchor="middle"
       dominantBaseline="central"
@@ -222,22 +247,46 @@ function UiChrome() {
         );
       })}
       <Flat pts={rect(1.75, 0.58, 3.95, 0.4)} z={TOP_UI} fill="var(--color-bluetint)" stroke="#9aa4bd" />
-      {/* greeked text: sidebar items, card lines, content row */}
-      {[1.75, 2.45, 3.15].map((v) => (
-        <Flat key={v} pts={rect(0.62, v, 0.82, 0.3)} z={TOP_UI} fill="var(--color-bluesoft)" />
+      {/* sidebar: the active item cycles, like someone moving between pages */}
+      {[1.75, 2.45, 3.15].map((v, i) => (
+        <Flat
+          key={v}
+          className="iso-nav"
+          style={{ "--nav-d": `${i * 7}s` } as CSSProperties}
+          pts={rect(0.62, v, 0.82, 0.3)}
+          z={TOP_UI}
+          fill="var(--color-bluesoft)"
+        />
       ))}
-      <Flat pts={rect(2.2, 1.72, 1.55, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
-      <Flat pts={rect(2.2, 2.18, 1.1, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
-      <Flat pts={rect(4.45, 1.72, 1.35, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
-      <Flat pts={rect(4.45, 2.18, 0.95, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
+      {/* cards shimmer on their own beats, offset from the click */}
+      <g className="iso-shim" style={{ "--shim-d": "3.6s" } as CSSProperties}>
+        <Flat pts={rect(2.2, 1.72, 1.55, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
+        <Flat pts={rect(2.2, 2.18, 1.1, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
+      </g>
+      <g className="iso-shim" style={{ "--shim-d": "5.2s" } as CSSProperties}>
+        <Flat pts={rect(4.45, 1.72, 1.35, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
+        <Flat pts={rect(4.45, 2.18, 0.95, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
+      </g>
+      {/* content rows refresh only after the response comes back up */}
       <g className="iso-refresh">
         <Flat pts={rect(2.2, 3.3, 2.2, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
         <Flat pts={rect(2.2, 3.74, 1.6, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
       </g>
-      {/* the one action on the page: a red button the cursor keeps clicking */}
+      {/* the one action on the page: a red button the cursor properly
+          clicks, ripple and all */}
       <g className="iso-btn">
         <Box s={btn} faces={{ top: "var(--color-red)", left: "#c33a1c", right: "#a93117" }} />
       </g>
+      <circle
+        className="iso-ripple"
+        cx={(bp.x + 1).toFixed(1)}
+        cy={(by + 1).toFixed(1)}
+        r="9"
+        fill="none"
+        stroke="var(--color-blue)"
+        strokeWidth="1.6"
+        opacity="0"
+      />
       <path
         className="iso-cursor"
         d="M0 0 L0 11.2 L3 8.7 L5 13.2 L6.9 12.3 L4.9 7.9 L8.2 7.6 Z"
@@ -314,7 +363,9 @@ export function StackIso() {
               SVC_CUBES.map((s, i) => (
                 <g key={i} className="iso-bob" style={{ "--bob-i": i } as CSSProperties}>
                   <Box s={s} />
-                  <FaceGlyph s={s} text={GLYPHS[i]} />
+                  {/* the middle node sits by the request column and flashes
+                      blue as the click's request passes through */}
+                  <FaceGlyph s={s} text={GLYPHS[i]} className={i === 1 ? "iso-ack" : undefined} />
                 </g>
               ))}
             {layer.key === "data" && (
@@ -323,6 +374,16 @@ export function StackIso() {
                 <Cylinder u={2.1} v={3.55} r={0.62} h={0.7} z={Z_DATA + PLANE.h} />
                 <Cylinder u={3.35} v={2.35} r={0.4} h={0.5} z={Z_DATA + PLANE.h} />
                 <Bucket u={4.7} v={3.45} rT={0.6} rB={0.42} h={0.6} z={Z_DATA + PLANE.h} />
+                {/* write flash on the main cylinder when the request lands */}
+                <ellipse
+                  className="iso-db-hit"
+                  cx={px(2.1, 3.55).x.toFixed(1)}
+                  cy={(px(2.1, 3.55).y - (Z_DATA + PLANE.h + 0.7) * S).toFixed(1)}
+                  rx={(0.62 * ERX).toFixed(1)}
+                  ry={(0.62 * ERY).toFixed(1)}
+                  fill="var(--color-bluesoft)"
+                  opacity="0"
+                />
               </>
             )}
             <g
@@ -351,26 +412,37 @@ export function StackIso() {
         );
       })}
 
-      {/* Requests in flight, held until the stack has opened */}
+      {/* Traffic, held until the stack has opened. Column one is steady
+          background load; column two is the click's round trip, on the same
+          7s clock as the cursor: request down, database hit, response up,
+          then the content rows refresh. All plain CSS on screen-vertical
+          columns, so no SMIL and everything shares one timeline. */}
       <g className="iso-flow">
-        {COLUMNS.map(([u, v], i) => {
-          const p = px(u, v);
-          const yTop = p.y - (Z_UI + PLANE.h) * S;
-          const yBottom = p.y - Z_DATA * S;
-          // The dot waits at the column top before its motion begins; a
-          // relative path keeps it there instead of parking it at the SVG
-          // origin, which is what an absolute path does pre-begin.
+        {(() => {
+          const drop = ((Z_UI + PLANE.h) * S).toFixed(1);
+          const c1 = px(COLUMNS[0][0], COLUMNS[0][1]);
+          const c2 = px(COLUMNS[1][0], COLUMNS[1][1]);
+          const top1 = (c1.y - (Z_UI + PLANE.h) * S).toFixed(1);
+          const top2 = (c2.y - (Z_UI + PLANE.h) * S).toFixed(1);
           return (
-            <circle key={i} r="3.4" cx={p.x.toFixed(1)} cy={yTop.toFixed(1)} fill="var(--color-blue)">
-              <animateMotion
-                dur="3.4s"
-                begin={`${(2.0 + i * 1.7).toFixed(1)}s`}
-                repeatCount="indefinite"
-                path={`M0 0 L0 ${(yBottom - yTop).toFixed(1)}`}
-              />
-            </circle>
+            <g style={{ "--drop": `${drop}px` } as CSSProperties}>
+              {[0, 1, 2].map((i) => (
+                <circle
+                  key={i}
+                  className="iso-traffic"
+                  style={{ "--tr-d": `${(i * 1.07).toFixed(2)}s` } as CSSProperties}
+                  cx={c1.x.toFixed(1)}
+                  cy={top1}
+                  r={i === 1 ? 2.4 : 3}
+                  fill="var(--color-blue)"
+                  opacity="0"
+                />
+              ))}
+              <circle className="iso-req" cx={c2.x.toFixed(1)} cy={top2} r="3.2" fill="var(--color-blue)" opacity="0" />
+              <circle className="iso-res" cx={c2.x.toFixed(1)} cy={c2.y.toFixed(1)} r="2.8" fill="var(--color-blue)" opacity="0" />
+            </g>
           );
-        })}
+        })()}
       </g>
     </svg>
   );

@@ -374,8 +374,34 @@ kbd {
   .stack-iso .iso-btn {
     animation: iso-press 7s ease-in-out infinite;
   }
+  .stack-iso .iso-ripple {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: iso-ripple 7s ease-out infinite;
+  }
+  .stack-iso .iso-req {
+    animation: iso-req 7s linear infinite;
+  }
+  .stack-iso .iso-ack {
+    animation: iso-ack 7s ease-in-out infinite;
+  }
+  .stack-iso .iso-db-hit {
+    animation: iso-db-hit 7s ease-in-out infinite;
+  }
+  .stack-iso .iso-res {
+    animation: iso-res 7s linear infinite;
+  }
   .stack-iso .iso-refresh {
     animation: iso-refetch 7s ease-in-out infinite;
+  }
+  .stack-iso .iso-traffic {
+    animation: iso-traffic 3.2s linear var(--tr-d, 0s) infinite;
+  }
+  .stack-iso .iso-nav {
+    animation: iso-nav 21s ease-in-out var(--nav-d, 0s) infinite;
+  }
+  .stack-iso .iso-shim {
+    animation: iso-shim 7s ease-in-out var(--shim-d, 0s) infinite;
   }
   .stack-iso .iso-dot {
     animation: iso-tick 1.8s ease-in-out calc(var(--dot-i, 0) * 0.25s) infinite;
@@ -384,20 +410,24 @@ kbd {
     animation: iso-bob 5.6s ease-in-out calc(var(--bob-i, 0) * 1.4s) infinite;
   }
 }
+/* One 7s master clock. The beat: press at 6%, request falls 8-20%, the
+   service glyph acknowledges as it passes, the database flashes on landing,
+   the response climbs 24-35%, the content rows refresh 37-53%, and the
+   cursor wanders off and comes back for the next click. */
 @keyframes iso-click {
   0%,
-  8% {
+  4% {
     translate: 0px 0px;
   }
-  10% {
-    translate: 1.4px 1.4px;
+  6% {
+    translate: 1.8px 1.8px;
   }
-  12%,
-  34% {
+  8%,
+  40% {
     translate: 0px 0px;
   }
-  46%,
-  58% {
+  50%,
+  60% {
     translate: -15px -11px;
   }
   70%,
@@ -407,32 +437,159 @@ kbd {
 }
 @keyframes iso-press {
   0%,
-  8.5% {
+  4.5% {
     translate: 0px 0px;
   }
-  10.5% {
-    translate: 1.6px 1.6px;
+  6.5% {
+    translate: 2.2px 2.2px;
   }
-  13%,
+  9%,
   100% {
     translate: 0px 0px;
   }
 }
-@keyframes iso-refetch {
+@keyframes iso-ripple {
   0%,
-  12% {
+  5.5% {
+    opacity: 0;
+    scale: 0.25;
+  }
+  7% {
+    opacity: 0.8;
+  }
+  13%,
+  100% {
+    opacity: 0;
+    scale: 2.2;
+  }
+}
+@keyframes iso-req {
+  0%,
+  8% {
+    translate: 0px 0px;
+    opacity: 0;
+  }
+  10% {
     opacity: 1;
   }
-  16% {
-    opacity: 0.25;
-  }
   20% {
+    translate: 0px var(--drop, 149px);
+    opacity: 1;
+  }
+  22%,
+  100% {
+    translate: 0px var(--drop, 149px);
+    opacity: 0;
+  }
+}
+@keyframes iso-ack {
+  0%,
+  13% {
+    fill: var(--color-ink);
+    opacity: 0.8;
+  }
+  15.5% {
+    fill: var(--color-blue);
+    opacity: 1;
+  }
+  19%,
+  100% {
+    fill: var(--color-ink);
+    opacity: 0.8;
+  }
+}
+@keyframes iso-db-hit {
+  0%,
+  19% {
+    opacity: 0;
+  }
+  22% {
+    opacity: 0.85;
+  }
+  27%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes iso-res {
+  0%,
+  24% {
+    translate: 0px 0px;
+    opacity: 0;
+  }
+  26% {
+    opacity: 1;
+  }
+  35% {
+    translate: 0px calc(-1 * var(--drop, 149px));
+    opacity: 1;
+  }
+  37%,
+  100% {
+    translate: 0px calc(-1 * var(--drop, 149px));
+    opacity: 0;
+  }
+}
+@keyframes iso-refetch {
+  0%,
+  37% {
+    opacity: 1;
+  }
+  41% {
+    opacity: 0.3;
+  }
+  45% {
+    opacity: 0.95;
+  }
+  48% {
+    opacity: 0.4;
+  }
+  53%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes iso-traffic {
+  0% {
+    translate: 0px 0px;
+    opacity: 0;
+  }
+  12% {
     opacity: 0.9;
   }
-  24% {
-    opacity: 0.35;
+  86% {
+    opacity: 0.9;
+  }
+  100% {
+    translate: 0px var(--drop, 149px);
+    opacity: 0;
+  }
+}
+@keyframes iso-nav {
+  0% {
+    fill: var(--color-bluesoft);
+    opacity: 1;
+  }
+  3%,
+  26% {
+    fill: var(--color-blue);
+    opacity: 0.5;
   }
   30%,
+  100% {
+    fill: var(--color-bluesoft);
+    opacity: 1;
+  }
+}
+@keyframes iso-shim {
+  0%,
+  2% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0.45;
+  }
+  9%,
   100% {
     opacity: 1;
   }
