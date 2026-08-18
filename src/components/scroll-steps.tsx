@@ -111,7 +111,9 @@ export function ScrollSteps({
               ref={(el) => {
                 refs.current[i] = el;
               }}
-              className="flex flex-col justify-center py-5 lg:min-h-[54vh] lg:py-6"
+              className={`flex flex-col justify-center py-5 lg:py-6 ${
+                i < count - 1 ? "lg:min-h-[40vh]" : ""
+              }`}
             >
               <h3 className={`text-sub max-w-[24ch] ${tone === "band" ? "text-paper" : "text-ink"}`}>{s.title}</h3>
               <div className={`mt-3 grid max-w-[52ch] gap-4 text-body ${tone === "band" ? "text-bandmuted" : "text-muted"}`}>

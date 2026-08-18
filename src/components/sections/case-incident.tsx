@@ -19,7 +19,7 @@ function Figure() {
 
 export function CaseIncident() {
   return (
-    <section className="bg-band py-section text-paper">
+    <section className="bg-band py-section-tinted text-paper">
       <div id="incident" className="shell scroll-mt-24">
         <div>
           <ScrollSteps

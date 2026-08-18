@@ -76,6 +76,12 @@
   padding-inline: var(--spacing-gutter);
 }
 
+/* Sections that carry their own background are separated by the colour edge
+   itself, so they do not also need a full section's padding on each side. */
+@utility py-section-tinted {
+  padding-block: calc(var(--spacing-section) * 0.66);
+}
+
 /* Hard offset shadow, the document-on-a-desk depth cue. */
 @utility desk-blue {
   box-shadow: 10px 10px 0 var(--color-bluesoft);
