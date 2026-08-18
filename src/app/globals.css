@@ -302,13 +302,30 @@ kbd {
    request columns fade in and traffic starts. Layer lift rides the iso z
    axis, which projects to pure screen y, so a translate is geometrically
    honest. Reduced motion: the global floor below snaps all of it to the
-   final state. */
+   final state.
+
+   The handoff: --fold scrubs 0 to 1 as the figure scrolls out of the hero,
+   packing the layers back into the assembled block, fading the traffic and
+   shrinking the figure toward the cube in the nav. Driven by a view()
+   timeline on .hero-fig; layer transform derives from --fold so scrubbing
+   is 1:1 with scroll. Hover uses the separate translate channel so its
+   transition never smooths the scrub. */
+@property --fold {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+.stack-iso {
+  scale: calc(1 - 0.12 * var(--fold, 0));
+}
 .stack-iso .iso-layer {
+  transform: translateY(calc(var(--iso-from, 0px) * var(--fold, 0)));
   transition:
-    transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+    translate 0.5s cubic-bezier(0.19, 1, 0.22, 1),
     opacity 0.35s ease;
 }
 .stack-iso :is(.iso-cols, .iso-flow) {
+  opacity: calc(1 - var(--fold, 0));
   transition: opacity 0.35s ease;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -317,6 +334,18 @@ kbd {
   }
   .stack-iso :is(.iso-cols, .iso-flow) {
     animation: iso-appear 0.5s ease 1.7s backwards;
+  }
+  @supports (animation-timeline: view()) {
+    .hero-fig {
+      animation: hero-fold linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 80%;
+    }
+  }
+}
+@keyframes hero-fold {
+  to {
+    --fold: 1;
   }
 }
 @keyframes iso-explode {
@@ -337,7 +366,7 @@ kbd {
    steps back. Hover-capable pointers only. */
 @media (hover: hover) {
   .stack-iso .iso-layer:hover {
-    transform: translateY(-8px);
+    translate: 0 -8px;
   }
   .stack-iso:has(.iso-layer:hover) .iso-layer:not(:hover) {
     opacity: 0.4;

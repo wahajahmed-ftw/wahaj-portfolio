@@ -1,18 +1,13 @@
 import Image from "next/image";
-import { ArrowDownIcon } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "@/components/reveal";
 
 export function About() {
   return (
-    // The anchor target is at least one viewport tall, measured from where
-    // the #about landing places it (96px scroll margin), so the contact band
-    // always starts below the fold on landing. The sign-off line sits at the
-    // bottom of the frame and doubles as the scroll cue.
-    <section className="pt-section pb-16 sm:pb-20">
-      <div
-        id="about"
-        className="shell flex min-h-[calc(100dvh-6rem)] scroll-mt-24 flex-col justify-between gap-16"
-      >
+    // Bottom padding sized so the #about landing shows the first line of
+    // the contact headline as a teaser at typical viewport heights, not a
+    // wall of blue and not a stretch of dead paper.
+    <section className="pt-section pb-24 sm:pb-28">
+      <div id="about" className="shell scroll-mt-24">
         <Reveal>
           <div className="grid items-start gap-12 sm:grid-cols-[16rem_1fr] sm:gap-16">
             <div className="relative mx-auto w-56 rotate-[-2deg] sm:mx-0 sm:w-64">
@@ -59,11 +54,6 @@ export function About() {
             </div>
           </div>
         </Reveal>
-
-        <p className="flex items-center gap-2 font-mono text-[11px] text-muted">
-          <ArrowDownIcon size={12} />
-          end of file. say hello below.
-        </p>
       </div>
     </section>
   );

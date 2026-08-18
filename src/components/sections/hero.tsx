@@ -13,7 +13,10 @@ const rise = (d: number) => ({ "--rise-d": `${d}s` }) as CSSProperties;
 
 export function Hero() {
   return (
-    <section id="top" className="relative flex min-h-[100dvh] items-center overflow-hidden pt-24 pb-14">
+    // No overflow-hidden here: it would make this section a scroll
+    // container, and the .hero-fig view() timeline must resolve against
+    // the root scroller for the fold handoff to run.
+    <section id="top" className="relative flex min-h-[100dvh] items-center pt-24 pb-14">
       <div className="shell grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
         <div>
           <p className="rise font-mono text-small text-blue" style={rise(0.05)}>
@@ -73,7 +76,7 @@ export function Hero() {
         </div>
 
         <div className="rise" style={rise(0.18)}>
-          <Tilt>
+          <Tilt className="hero-fig">
             <figure className="desk-blue rounded-edge border-2 border-ink bg-white p-4 sm:p-6">
               <StackIso />
               <figcaption className="mt-3 border-t border-line pt-3 font-mono text-[11px] text-muted">

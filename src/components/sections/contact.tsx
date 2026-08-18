@@ -14,7 +14,7 @@ export function Contact() {
             words instead of empty blue. */}
         <div className="shell pt-14 pb-24 sm:pt-20 sm:pb-32">
           <Reveal>
-            <h2 className="max-w-[14ch] text-display text-paper">
+            <h2 className="max-w-[22ch] text-display text-paper">
               Let&apos;s build something that holds up.
             </h2>
             <p className="mt-7 max-w-[44ch] text-lead text-bluesoft">
