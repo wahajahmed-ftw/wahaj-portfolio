@@ -1,6 +1,5 @@
 import { Nav } from "@/components/nav";
 import { Hero } from "@/components/sections/hero";
-import { Impact } from "@/components/sections/impact";
 import { CaseScheduling } from "@/components/sections/case-scheduling";
 import { CaseIncident } from "@/components/sections/case-incident";
 import { CaseChannelDynamics } from "@/components/sections/case-channel-dynamics";
@@ -17,7 +16,6 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Impact />
         <CaseScheduling />
         <CaseIncident />
         <CaseChannelDynamics />

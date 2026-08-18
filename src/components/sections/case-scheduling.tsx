@@ -17,7 +17,7 @@ function Figure() {
 
 export function CaseScheduling() {
   return (
-    <section className="py-section">
+    <section className="border-t border-line py-section">
       <div id="work" className="shell scroll-mt-24">
         <Reveal>
           <p className="font-mono text-small text-blue">case file 01</p>
