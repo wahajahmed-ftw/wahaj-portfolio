@@ -8,26 +8,26 @@ LinkedIn: https://www.linkedin.com/in/wahajahmed-ftw/
 
 ## What I build
 
-Full-stack product engineering: React, Next.js, Node.js, Express,
-TypeScript. GraphQL and REST behind explicit contracts, admin dashboards
-and internal tooling, shared component libraries, PostgreSQL, Supabase,
-DynamoDB, Prisma.
+Full-stack product engineering (core focus): React and Next.js frontends,
+Node.js and Express services, client-facing dashboards and admin panels,
+shared component libraries documented in Storybook, end to end delivery
+from design through deployment. TypeScript, JavaScript, Python, Java, SQL.
 
-AI that reaches production (core focus): MCP servers putting internal
-data inside the customer's Claude, OAuth with company, sector and
-per-user entitlement checks, long-running work moved onto queues,
-scheduled LLM pipelines that fan out and converge, models sized to the
-job rather than the headline.
+APIs and service architecture: GraphQL and REST APIs in microservice
+architectures, standardized response shapes and reusable middleware,
+scalable schemas and consistent data contracts, pagination, filtering and
+sorting over large datasets, role-based authorization with JWT and Clerk.
 
-Cloud and infrastructure: AWS Lambda, SQS, S3, DynamoDB. Scheduled
-pipelines and pre-signed URL delivery, structured logging with request
-correlation, observability with New Relic and Dash0, CI with Jenkins and
-SonarQube, deploys on Vercel.
+Performance and reliability: code splitting, lazy loading and render
+optimization, TanStack Query caching and state management, Lighthouse and
+Core Web Vitals measurement, structured logging with request correlation,
+incident investigation down to root cause.
 
-Performance and reliability: route-level code splitting and lazy
-loading, cache and invalidation strategy with TanStack Query, Core Web
-Vitals and Lighthouse work, incident investigation down to root cause,
-throughput and capacity tuning.
+Cloud and AI in production: AWS Lambda, SQS and S3 with DynamoDB and
+PostgreSQL, scheduled pipelines and pre-signed URL delivery, MCP servers
+putting internal data inside the customer's Claude, OAuth with company,
+sector and per-user entitlement checks, CI with Jenkins and SonarQube,
+deploys on Vercel.
 
 ## Outcomes
 

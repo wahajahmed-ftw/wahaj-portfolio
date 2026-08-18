@@ -2,54 +2,54 @@ import { Reveal } from "@/components/reveal";
 
 /**
  * The offer, stated before any evidence: what someone can actually hire this
- * for, in specifics rather than adjectives. Ruled quadrants rather than
- * floating cards, so it reads as a capability schedule in the same document
- * language as the case files.
+ * for, in specifics rather than adjectives. Drawn from the CV, minus anything
+ * that identifies an employer. Ruled quadrants rather than floating cards, so
+ * it stays in the same document language as the case files.
  */
 const areas = [
   {
     title: "Full-stack product engineering",
-    body: "Product systems across the whole stack, from the interface down through the services to the schema underneath.",
-    items: [
-      "React, Next.js, Node.js, Express, TypeScript",
-      "GraphQL and REST APIs behind explicit contracts",
-      "Admin dashboards and internal tooling",
-      "Shared component libraries, documented in Storybook",
-      "PostgreSQL, Supabase, DynamoDB, Prisma",
-    ],
-  },
-  {
-    title: "AI that reaches production",
     focus: true,
-    body: "Not demos. The queueing, the access control, and the model sizing that decide whether an AI feature survives real customers.",
+    body: "React and Next.js in front, Node.js and GraphQL behind it. Production applications where one person owns the interface, the service, and the deploy.",
     items: [
-      "MCP servers putting internal data inside the customer's Claude",
-      "OAuth with company, sector and per-user entitlement checks",
-      "Long-running work moved off the request path onto queues",
-      "Scheduled LLM pipelines that fan out and converge",
-      "Models sized to the job, not to the headline",
+      "React and Next.js frontends, Node.js and Express services",
+      "Client-facing dashboards and admin panels",
+      "Shared component libraries, documented in Storybook",
+      "End to end delivery, from design through deployment",
+      "TypeScript, JavaScript, Python, Java, SQL",
     ],
   },
   {
-    title: "Cloud and infrastructure",
-    body: "Serverless backends that stay up, deploy themselves, and say something useful at the moment they fail.",
+    title: "APIs and service architecture",
+    body: "Services that deploy and scale on their own, behind contracts explicit enough that neither side breaks quietly.",
     items: [
-      "AWS Lambda, SQS, S3, DynamoDB",
-      "Scheduled pipelines and pre-signed URL delivery",
-      "Structured logging with request correlation",
-      "Observability wiring with New Relic and Dash0",
-      "CI with Jenkins and SonarQube, deploys on Vercel",
+      "GraphQL and REST APIs in microservice architectures",
+      "Standardized response shapes and reusable middleware",
+      "Scalable schemas and consistent data contracts",
+      "Pagination, filtering and sorting over large datasets",
+      "Role-based authorization with JWT and Clerk",
     ],
   },
   {
     title: "Performance and reliability",
-    body: "Slow things made fast and silent failures made loud, measured before and after instead of estimated.",
+    body: "Slow things made fast and silent failures made loud, measured in production before and after rather than estimated.",
     items: [
-      "Route-level code splitting and lazy loading",
-      "Cache and invalidation strategy with TanStack Query",
-      "Core Web Vitals and Lighthouse work",
+      "Code splitting, lazy loading and render optimization",
+      "TanStack Query caching and state management",
+      "Lighthouse and Core Web Vitals measurement",
+      "Structured logging with request correlation",
       "Incident investigation down to root cause",
-      "Throughput and capacity tuning",
+    ],
+  },
+  {
+    title: "Cloud and AI in production",
+    body: "Serverless backends that stay up and say something useful when they fail, and AI features built with the same care as the rest of the system.",
+    items: [
+      "AWS Lambda, SQS and S3, with DynamoDB and PostgreSQL",
+      "Scheduled pipelines and pre-signed URL delivery",
+      "MCP servers putting internal data inside the customer's Claude",
+      "OAuth with company, sector and per-user entitlement checks",
+      "CI with Jenkins and SonarQube, deploys on Vercel",
     ],
   },
 ];
