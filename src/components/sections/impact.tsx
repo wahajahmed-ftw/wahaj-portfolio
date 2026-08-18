@@ -3,32 +3,33 @@ import { Reveal } from "@/components/reveal";
 
 /**
  * Summary of findings: the document's table of contents. Each measured
- * outcome is a row wired to the case file that proves it, leader dots and
- * all, so the band works as navigation rather than a stats strip.
+ * outcome is a row wired to the case file that proves it, leader dots
+ * running to the file number, so the band works as navigation rather than
+ * a stats strip. "see: case file NN" phrasing is reserved for How I Work.
  */
 const findings = [
   {
     value: <CountUp to={100} suffix="K+" className="tabular-nums" />,
     label: "students per district on one platform. Scheduling errors down 90%",
-    file: "case file 01",
+    file: "file 01",
     href: "#work",
   },
   {
     value: <CountUp to={92} from={65} className="tabular-nums" />,
     label: "Lighthouse, up from 65. Page load 3.5s down to 1.8s",
-    file: "case file 04",
+    file: "file 04",
     href: "#lib",
   },
   {
     value: <CountUp to={40} suffix="%" className="tabular-nums" />,
     label: "fewer redundant API requests. Server load down 20%",
-    file: "case file 04",
+    file: "file 04",
     href: "#lib",
   },
   {
     value: <CountUp to={30} suffix="%" className="tabular-nums" />,
     label: "faster feature cycles. Frontend duplication down 20%",
-    file: "case file 05",
+    file: "file 05",
     href: "#lib",
   },
 ];
@@ -61,7 +62,7 @@ export function Impact() {
                   className="hidden min-w-8 border-b-2 border-dotted border-bandmuted/40 lg:block"
                 />
                 <p className="mt-3 font-mono text-small text-bluesoft underline-offset-4 group-hover:underline lg:mt-0">
-                  see: {f.file}
+                  {f.file}
                 </p>
               </a>
             </Reveal>
