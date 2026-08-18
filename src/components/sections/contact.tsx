@@ -9,7 +9,10 @@ export function Contact() {
   return (
     <>
       <section id="contact" className="bg-blue text-paper">
-        <div className="shell py-24 sm:py-32">
+        {/* Top padding stays shallow so the heading rides near the band's
+            top edge: when the band peeks into the #about landing, it shows
+            words instead of empty blue. */}
+        <div className="shell pt-14 pb-24 sm:pt-20 sm:pb-32">
           <Reveal>
             <h2 className="max-w-[14ch] text-display text-paper">
               Let&apos;s build something that holds up.
