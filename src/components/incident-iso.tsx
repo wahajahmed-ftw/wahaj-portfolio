@@ -40,7 +40,7 @@ const allPts = [
   { x: px(DB.u, DB.v).x - DB.r * ERX, y: px(DB.u, DB.v).y - (DB.h + 0.2) * S },
   { x: px(DB.u, DB.v).x + DB.r * ERX + 46, y: px(DB.u, DB.v).y + 26 },
 ];
-const PAD = { l: 30, r: 30, t: 28, b: 18 };
+const PAD = { l: 34, r: 42, t: 38, b: 22 };
 const minX = Math.min(...allPts.map((p) => p.x)) - PAD.l;
 const maxX = Math.max(...allPts.map((p) => p.x)) + PAD.r;
 const minY = Math.min(...allPts.map((p) => p.y)) - PAD.t;
@@ -157,7 +157,7 @@ export function IncidentIso() {
       {/* Labels, halo keeps them legible over anything */}
       <g
         fontFamily="var(--font-geist-mono)"
-        fontSize="11"
+        fontSize="11.2"
         fontWeight="600"
         fill="var(--color-ink)"
         stroke="#ffffff"
@@ -182,7 +182,7 @@ export function IncidentIso() {
       </g>
 
       {/* Annotations, staged by the scene */}
-      <g fontFamily="var(--font-geist-mono)" fontSize="10.5" stroke="#ffffff" strokeWidth="3.5" strokeLinejoin="round" paintOrder="stroke">
+      <g fontFamily="var(--font-geist-mono)" fontSize="10.7" stroke="#ffffff" strokeWidth="3.5" strokeLinejoin="round" paintOrder="stroke">
         <text x={px(sheetsCenter[0], SHEETS.v).x - 30} y={px(sheetsCenter[0], SHEETS.v).y - 40} fill="var(--color-muted)">
           ~30 of 4,500 missing
         </text>

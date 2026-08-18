@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 import { lenisStore } from "@/lib/lenis-store";
-import { scroll } from "@/lib/scroll-progress";
 
 /**
  * Lenis eases native scroll rather than replacing it, so the scrollbar,
@@ -23,11 +22,6 @@ export function SmoothScroll() {
       anchors: true,
     });
     lenisStore.lenis = lenis;
-
-    lenis.on("scroll", ({ progress, velocity }: { progress: number; velocity: number }) => {
-      scroll.progress = progress;
-      scroll.velocity = velocity;
-    });
 
     let frame = requestAnimationFrame(function raf(time: number) {
       lenis.raf(time);

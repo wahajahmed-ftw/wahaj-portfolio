@@ -210,7 +210,7 @@ function FaceGlyph({ s, text, className }: { s: Slab; text: string; className?: 
       textAnchor="middle"
       dominantBaseline="central"
       fontFamily="var(--font-geist-mono)"
-      fontSize="12.5"
+      fontSize="13.2"
       fontWeight="700"
       fill={INK}
       opacity="0.8"
@@ -463,10 +463,10 @@ export function StackIso() {
                 strokeDasharray="2 3"
                 fill="none"
               />
-              <text x={lx} y={y - 2} fontSize="12" fontWeight="700" fill="var(--color-ink)">
+              <text x={lx} y={y - 2} fontSize="13.2" fontWeight="700" fill="var(--color-ink)">
                 {layer.name}
               </text>
-              <text x={lx} y={y + 14} fontSize="10.5" fill="var(--color-muted)">
+              <text x={lx} y={y + 14} fontSize="12.1" fill="var(--color-muted)">
                 {layer.tech}
               </text>
             </g>

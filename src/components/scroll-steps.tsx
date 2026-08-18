@@ -99,7 +99,7 @@ export function ScrollSteps({
   return (
     <div ref={rootRef} className={sceneClass} data-step={step}>
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
-        <div className="lg:sticky lg:top-24 lg:self-start">
+        <div className="scene-figure">
           {header ? <div className="mb-10">{header}</div> : null}
           {figure}
         </div>

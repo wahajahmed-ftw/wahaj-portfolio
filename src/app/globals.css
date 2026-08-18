@@ -15,7 +15,7 @@
   --color-blue: #2b49cf;
   --color-bluesoft: #dfe6fb;
   --color-bluetint: #eef2fe;
-  --color-red: #d8401f;
+  --color-red: #c0341a;
   --color-redsoft: #fbe3dc;
   --color-band: #14161b;
   --color-bandline: #2b2e37;
@@ -159,7 +159,7 @@
   border-radius: 6px;
   padding: 0.42rem 0.8rem;
   rotate: -5deg;
-  background: color-mix(in srgb, var(--color-paper) 88%, transparent);
+  background: var(--color-paper);
 }
 .stamp::after {
   content: "";
@@ -224,6 +224,40 @@ kbd {
   outline: 2.5px solid var(--color-blue);
   outline-offset: 3px;
   border-radius: var(--radius-edge);
+}
+
+/* The blue drench would otherwise draw a blue ring on blue: invisible. */
+#contact :focus-visible {
+  outline-color: var(--color-paper);
+}
+
+/* Sticky only when the viewport can actually hold the pinned figure.
+   Shorter screens scroll it with the content instead, so the stamp at the
+   figure's bottom edge stays reachable. */
+@media (min-width: 1024px) and (min-height: 740px) {
+  .scene-figure {
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+  }
+}
+
+/* Keyboard users land here first: 15 screens is a long way to tab through. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 60;
+  padding: 0.6rem 1rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-radius: var(--radius-edge);
+  font-family: var(--font-geist-mono);
+  font-size: var(--text-small);
+  translate: 0 -150%;
+}
+.skip-link:focus {
+  translate: 0 0;
 }
 
 /* ---------------------------------------------------------------

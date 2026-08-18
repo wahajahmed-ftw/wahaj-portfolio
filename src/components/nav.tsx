@@ -18,18 +18,18 @@ export function Nav() {
             <polygon points="32,32 50,22 50,40 32,50" fill="#c7d2f5" stroke="var(--color-ink)" strokeWidth="3" strokeLinejoin="round" />
             <polygon points="14,22 32,32 32,50 14,40" fill="#e3e9fc" stroke="var(--color-ink)" strokeWidth="3" strokeLinejoin="round" />
           </svg>
-          <span className="font-display text-[1.1rem] font-bold tracking-[-0.01em]">
+          <span className="hidden font-display text-[1.1rem] font-bold tracking-[-0.01em] min-[380px]:inline">
             wa<span className="text-red">.</span>
           </span>
         </a>
 
         <nav className="flex items-center gap-3 sm:gap-5">
-          <ul className="hidden items-center gap-6 sm:flex">
+          <ul className="flex items-center gap-3.5 sm:gap-6">
             {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-small font-medium text-muted transition-colors duration-150 hover:text-ink"
+                  className="text-[0.8125rem] font-medium text-muted transition-colors duration-150 hover:text-ink sm:text-small"
                 >
                   {link.label}
                 </a>

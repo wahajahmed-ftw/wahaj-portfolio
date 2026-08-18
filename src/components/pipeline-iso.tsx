@@ -100,7 +100,7 @@ function Labels() {
   return (
     <g
       fontFamily="var(--font-geist-mono)"
-      fontSize="11"
+      fontSize="14.4"
       fontWeight="600"
       fill="var(--color-ink)"
       stroke="#ffffff"
@@ -236,7 +236,7 @@ export function PipelineIso({ mode }: { mode: "hero" | "sched" }) {
 
       {/* Annotations */}
       {mode === "hero" && (
-        <g fontFamily="var(--font-geist-mono)" fontSize="10.5" fill="var(--color-muted)" stroke="#ffffff" strokeWidth="3.5" strokeLinejoin="round" paintOrder="stroke">
+        <g fontFamily="var(--font-geist-mono)" fontSize="13.2" fill="var(--color-muted)" stroke="#ffffff" strokeWidth="3.5" strokeLinejoin="round" paintOrder="stroke">
           <text x={px(0.7, 3.2).x} y={px(0.7, 3.2).y - 46}>
             100K+ students/district
           </text>
@@ -246,7 +246,7 @@ export function PipelineIso({ mode }: { mode: "hero" | "sched" }) {
         </g>
       )}
       {mode === "sched" && (
-        <g fontFamily="var(--font-geist-mono)" fontSize="10.5" stroke="#ffffff" strokeWidth="3.5" strokeLinejoin="round" paintOrder="stroke">
+        <g fontFamily="var(--font-geist-mono)" fontSize="13.2" stroke="#ffffff" strokeWidth="3.5" strokeLinejoin="round" paintOrder="stroke">
           <text
             className="scene-note t-timeout"
             x={gatewayTop.x - 34}

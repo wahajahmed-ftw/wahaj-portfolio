@@ -80,6 +80,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} antialiased`}
     >
       <body>
+        <a href="#work" className="skip-link">Skip to the work</a>
         <SmoothScroll />
         {children}
         <BackToTop />

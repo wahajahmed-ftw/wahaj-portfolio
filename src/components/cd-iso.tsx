@@ -57,7 +57,7 @@ const pullReturn = isoPath([
 ]);
 
 const allPts = NODES.flatMap((n) => isoBox(n.u, n.v, n.w, n.d, n.h).corners);
-const PAD = { l: 34, r: 34, t: 30, b: 46 };
+const PAD = { l: 34, r: 48, t: 32, b: 46 };
 const minX = Math.min(...allPts.map((p) => p.x)) - PAD.l;
 const maxX = Math.max(...allPts.map((p) => p.x)) + PAD.r;
 const minY = Math.min(...allPts.map((p) => p.y)) - PAD.t;
@@ -159,7 +159,7 @@ export function CdIso() {
       {/* Labels */}
       <g
         fontFamily="var(--font-geist-mono)"
-        fontSize="11"
+        fontSize="13"
         fontWeight="600"
         fill="var(--color-ink)"
         stroke="#ffffff"
@@ -181,7 +181,7 @@ export function CdIso() {
       </g>
 
       {/* Annotations, staged */}
-      <g fontFamily="var(--font-geist-mono)" fontSize="10.5" stroke="#ffffff" strokeWidth="3.5" strokeLinejoin="round" paintOrder="stroke">
+      <g fontFamily="var(--font-geist-mono)" fontSize="11.9" stroke="#ffffff" strokeWidth="3.5" strokeLinejoin="round" paintOrder="stroke">
         <text className="scene-note t-fan" x={queueTop.x - 40} y={queueTop.y - 26} fill="var(--color-blue)">
           fan out -&gt; haiku one-liners
         </text>

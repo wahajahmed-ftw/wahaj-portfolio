@@ -2,7 +2,7 @@ import { Reveal } from "@/components/reveal";
 
 // Filled in from the final Lighthouse run before shipping. Keep honest.
 const receipts = [
-  { value: "100", label: "Lighthouse performance, desktop. 96 mobile" },
+  { value: "100", label: "Lighthouse performance, desktop. 98 mobile" },
   { value: "0", label: "cumulative layout shift" },
   { value: "0ms", label: "total blocking time" },
   { value: "100%", label: "static, prerendered at build" },
