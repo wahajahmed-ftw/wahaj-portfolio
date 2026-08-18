@@ -2,7 +2,6 @@ import type { CSSProperties } from "react";
 import {
   ArrowDownIcon,
   EnvelopeSimpleIcon,
-  GithubLogoIcon,
   LinkedinLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { StackIso } from "@/components/stack-iso";
@@ -63,9 +62,6 @@ export function Hero() {
           </div>
 
           <div className="rise mt-9 flex items-center gap-3" style={rise(0.3)}>
-            <a href={site.github} aria-label="GitHub" className="icon-btn" target="_blank" rel="noopener noreferrer">
-              <GithubLogoIcon size={19} />
-            </a>
             <a href={site.linkedin} aria-label="LinkedIn" className="icon-btn" target="_blank" rel="noopener noreferrer">
               <LinkedinLogoIcon size={19} />
             </a>

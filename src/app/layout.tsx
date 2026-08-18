@@ -55,7 +55,7 @@ const personSchema = {
   jobTitle: "Full-stack engineer",
   email: `mailto:${site.email}`,
   url: site.url,
-  sameAs: [site.github, site.linkedin],
+  sameAs: [site.linkedin],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Islamabad",

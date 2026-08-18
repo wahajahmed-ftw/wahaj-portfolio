@@ -29,6 +29,8 @@ export const site = {
   role: "Full-stack engineer",
   location: "Islamabad, Pakistan",
   email: "wahajahmed55@live.com",
+  // Unlinked for now: the profile does not corroborate the case files.
+  // Restore the nav/hero/footer links and the JSON-LD sameAs entry together.
   github: "https://github.com/wahajahmed-ftw",
   linkedin: "https://www.linkedin.com/in/wahajahmed-ftw/",
   title: "Wahaj Ahmed. Systems that hold up.",

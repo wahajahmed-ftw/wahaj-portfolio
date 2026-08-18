@@ -1,4 +1,4 @@
-import { GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react/dist/ssr";
+import { LinkedinLogoIcon } from "@phosphor-icons/react/dist/ssr";
 import { CTA, site } from "@/lib/site";
 
 const links = [
@@ -36,15 +36,6 @@ export function Nav() {
               </li>
             ))}
           </ul>
-          <a
-            href={site.github}
-            aria-label="GitHub"
-            className="icon-btn hidden md:inline-flex"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <GithubLogoIcon size={19} />
-          </a>
           <a
             href={site.linkedin}
             aria-label="LinkedIn"

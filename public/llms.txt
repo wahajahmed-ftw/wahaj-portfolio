@@ -4,7 +4,6 @@ Full-stack engineer based in Islamabad, Pakistan. I build React and Node
 systems that hold up past 100,000 users.
 
 Contact: wahajahmed55@live.com
-GitHub: https://github.com/wahajahmed-ftw
 LinkedIn: https://www.linkedin.com/in/wahajahmed-ftw/
 
 ## Outcomes

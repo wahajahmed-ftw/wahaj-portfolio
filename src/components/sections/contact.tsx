@@ -38,14 +38,6 @@ export function Contact() {
         </p>
         <div className="flex items-center gap-5">
           <a
-            href={site.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 font-mono text-small text-muted transition-colors hover:text-ink"
-          >
-            GitHub <ArrowUpRightIcon size={12} />
-          </a>
-          <a
             href={site.linkedin}
             target="_blank"
             rel="noopener noreferrer"
