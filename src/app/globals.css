@@ -56,7 +56,7 @@
   --radius-edge: 8px;
 
   --spacing-gutter: clamp(1.25rem, 4vw, 2.5rem);
-  --spacing-section: clamp(5.5rem, 11vw, 10rem);
+  --spacing-section: clamp(4rem, 11vw, 10rem);
 }
 
 @theme inline {
