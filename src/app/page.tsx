@@ -22,10 +22,10 @@ export default function Home() {
         <CaseIncident />
         <CaseChannelDynamics />
         <QuickFiles />
+        <CaseSite />
         <HowIWork />
         <Stack />
         <About />
-        <CaseSite />
         <Contact />
       </main>
     </>

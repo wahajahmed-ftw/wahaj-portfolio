@@ -5,7 +5,7 @@ import { ScrollSteps } from "@/components/scroll-steps";
 function Figure() {
   return (
     <div className="relative">
-      <figure className="desk-dark rounded-edge border-2 border-ink bg-paper p-4 text-ink sm:p-5">
+      <figure className="desk-blue rounded-edge border-2 border-ink bg-paper p-4 text-ink sm:p-5">
         <IncidentIso />
         <figcaption className="mt-3 border-t border-line pt-3 font-mono text-[11px] text-muted">
           fig. 2: the investigation, as it actually went. the error existed
