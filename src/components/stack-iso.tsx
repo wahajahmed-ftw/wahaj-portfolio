@@ -4,14 +4,15 @@ import { isoBox, px, S } from "@/lib/iso";
 /**
  * The full stack, exploded: three floating isometric planes with requests
  * dropping through them. Each plane is drawn in its own diagram language so
- * it reads without the caption: the UI plane is a browser wireframe (window
- * dots, address bar, greeked layout, one red button under a cursor), the
- * services plane is three nodes carrying code glyphs, the data plane is a
- * database cylinder and a storage bucket.
+ * it reads without the caption: the UI plane is a browser wireframe whose
+ * cursor periodically clicks the one red button (window dots tick like a
+ * loader, content rows refresh), the services plane is three idling nodes
+ * carrying code glyphs, the data plane holds two database cylinders, a
+ * storage bucket and a stack of report sheets.
  *
  * The figure performs its own caption: it arrives assembled and explodes
- * apart on load (CSS keyframes on the layer groups), and each layer lifts
- * on hover while the others dim. All server-rendered; motion is pure CSS.
+ * apart on load, folds back up as the hero scrolls away (--fold), and each
+ * layer lifts on hover. All server-rendered; motion is pure CSS + SMIL.
  */
 
 const Z_UI = 4.0;
@@ -23,22 +24,30 @@ const TOP_UI = Z_UI + PLANE.h + 0.16; // top surface of UI furniture
 
 type Slab = { u: number; v: number; w: number; d: number; h: number; z: number };
 
-const SLABS: Slab[] = [
-  // planes
+const PLANES: Slab[] = [
   { u: 0, v: 0, w: PLANE.w, d: PLANE.d, h: PLANE.h, z: Z_UI },
   { u: 0, v: 0, w: PLANE.w, d: PLANE.d, h: PLANE.h, z: Z_SVC },
   { u: 0, v: 0, w: PLANE.w, d: PLANE.d, h: PLANE.h, z: Z_DATA },
-  // UI blocks: browser bar, sidebar, two cards, content row
+];
+
+// UI blocks: browser bar, sidebar, two cards, content row.
+const UI_BLOCKS: Slab[] = [
   { u: 0.4, v: 0.4, w: 5.6, d: 0.75, h: 0.16, z: Z_UI + PLANE.h },
   { u: 0.4, v: 1.45, w: 1.25, d: 2.7, h: 0.16, z: Z_UI + PLANE.h },
   { u: 2.0, v: 1.45, w: 1.95, d: 1.3, h: 0.16, z: Z_UI + PLANE.h },
   { u: 4.25, v: 1.45, w: 1.75, d: 1.3, h: 0.16, z: Z_UI + PLANE.h },
   { u: 2.0, v: 3.05, w: 4.0, d: 1.05, h: 0.16, z: Z_UI + PLANE.h },
-  // service nodes, kept toward the front edge so the UI plane cannot hide them
+];
+
+// Service nodes, kept toward the front edge so the UI plane cannot hide them.
+const SVC_CUBES: Slab[] = [
   { u: 1.15, v: 2.5, w: 1.0, d: 1.0, h: 0.6, z: Z_SVC + PLANE.h },
   { u: 2.8, v: 3.2, w: 1.0, d: 1.0, h: 0.6, z: Z_SVC + PLANE.h },
   { u: 4.45, v: 2.3, w: 1.0, d: 1.0, h: 0.6, z: Z_SVC + PLANE.h },
 ];
+const GLYPHS = ["{ }", "</>", "fn"];
+
+const SLABS: Slab[] = [...PLANES, ...UI_BLOCKS, ...SVC_CUBES];
 
 // Requests drop through the stack at two columns.
 const COLUMNS: [number, number][] = [
@@ -61,7 +70,7 @@ function slabCorners(s: Slab) {
 }
 
 const allPts = SLABS.flatMap(slabCorners);
-const PAD = { l: 20, r: 128, t: 24, b: 30 };
+const PAD = { l: 20, r: 150, t: 24, b: 30 };
 const minX = Math.min(...allPts.map((p) => p.x)) - PAD.l;
 const maxX = Math.max(...allPts.map((p) => p.x)) + PAD.r;
 const minY = Math.min(...allPts.map((p) => p.y)) - PAD.t;
@@ -147,7 +156,48 @@ function Bucket({ u, v, rT, rB, h, z }: { u: number; v: number; rT: number; rB: 
   );
 }
 
-// Browser chrome and greeked layout on the UI plane.
+// A short stack of report sheets: the exports from case file 01.
+function Sheets() {
+  const base = { u: 0.55, v: 3.55, w: 0.9, d: 0.62 };
+  return (
+    <g>
+      {[0, 1, 2].map((i) => (
+        <Flat
+          key={i}
+          pts={rect(base.u + i * 0.05, base.v - i * 0.03, base.w, base.d)}
+          z={Z_DATA + PLANE.h + i * 0.09}
+          fill="#ffffff"
+          stroke={INK}
+        />
+      ))}
+    </g>
+  );
+}
+
+// Code glyph lying on the left face of a service cube: the matrix maps text
+// x onto the iso u axis and keeps verticals vertical.
+function FaceGlyph({ s, text }: { s: Slab; text: string }) {
+  const c = px(s.u + s.w / 2, s.v + s.d);
+  const y = c.y - (s.z + s.h / 2) * S;
+  return (
+    <text
+      transform={`matrix(0.866 0.5 0 1 ${c.x.toFixed(1)} ${y.toFixed(1)})`}
+      textAnchor="middle"
+      dominantBaseline="central"
+      fontFamily="var(--font-geist-mono)"
+      fontSize="12.5"
+      fontWeight="700"
+      fill={INK}
+      opacity="0.8"
+    >
+      {text}
+    </text>
+  );
+}
+
+// Browser chrome and greeked layout on the UI plane. The cursor clicks the
+// red button on a loop; the content rows refresh in response (CSS drives
+// both off the same clock).
 function UiChrome() {
   const dotY = 0.775;
   const btn: Slab = { u: 4.85, v: 3.25, w: 0.9, d: 0.47, h: 0.16, z: TOP_UI };
@@ -155,12 +205,14 @@ function UiChrome() {
   const by = bp.y - (btn.z + btn.h) * S;
   return (
     <g>
-      {/* window dots and address bar on the browser bar */}
-      {[0.66, 0.98, 1.3].map((u) => {
+      {/* window dots double as a loader */}
+      {[0.66, 0.98, 1.3].map((u, i) => {
         const p = px(u, dotY);
         return (
           <ellipse
             key={u}
+            className="iso-dot"
+            style={{ "--dot-i": i } as CSSProperties}
             cx={p.x.toFixed(1)}
             cy={(p.y - TOP_UI * S).toFixed(1)}
             rx={(0.085 * ERX).toFixed(1)}
@@ -178,11 +230,16 @@ function UiChrome() {
       <Flat pts={rect(2.2, 2.18, 1.1, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
       <Flat pts={rect(4.45, 1.72, 1.35, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
       <Flat pts={rect(4.45, 2.18, 0.95, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
-      <Flat pts={rect(2.2, 3.3, 2.2, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
-      <Flat pts={rect(2.2, 3.74, 1.6, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
-      {/* the one action on the page: a red button with the cursor on it */}
-      <Box s={btn} faces={{ top: "var(--color-red)", left: "#c33a1c", right: "#a93117" }} />
+      <g className="iso-refresh">
+        <Flat pts={rect(2.2, 3.3, 2.2, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
+        <Flat pts={rect(2.2, 3.74, 1.6, 0.24)} z={TOP_UI} fill="var(--color-bluesoft)" />
+      </g>
+      {/* the one action on the page: a red button the cursor keeps clicking */}
+      <g className="iso-btn">
+        <Box s={btn} faces={{ top: "var(--color-red)", left: "#c33a1c", right: "#a93117" }} />
+      </g>
       <path
+        className="iso-cursor"
         d="M0 0 L0 11.2 L3 8.7 L5 13.2 L6.9 12.3 L4.9 7.9 L8.2 7.6 Z"
         transform={`translate(${(bp.x + 1).toFixed(1)} ${(by + 1).toFixed(1)})`}
         fill={INK}
@@ -195,51 +252,21 @@ function UiChrome() {
   );
 }
 
-// Code glyphs on the left faces of the service cubes. The matrix maps text
-// x onto the iso u axis and keeps verticals vertical, so the glyph lies on
-// the face.
-function SvcGlyphs() {
-  const cubes = SLABS.filter((s) => s.z === Z_SVC + PLANE.h);
-  const glyphs = ["{ }", "</>", "fn"];
-  return (
-    <g fontFamily="var(--font-geist-mono)" fontSize="12.5" fontWeight="700">
-      {cubes.map((s, i) => {
-        const c = px(s.u + s.w / 2, s.v + s.d);
-        const y = c.y - (s.z + s.h / 2) * S;
-        return (
-          <text
-            key={i}
-            transform={`matrix(0.866 0.5 0 1 ${c.x.toFixed(1)} ${y.toFixed(1)})`}
-            textAnchor="middle"
-            dominantBaseline="central"
-            fill={INK}
-            opacity="0.8"
-          >
-            {glyphs[i]}
-          </text>
-        );
-      })}
-    </g>
-  );
-}
-
 // Paint order data -> services -> UI matches z order, so overlap stays
-// correct with the slabs grouped per layer. `from` is where each layer sits
-// while collapsed, in z units relative to its exploded position.
+// correct with the furniture grouped per layer. `from` is where each layer
+// sits while collapsed, in z units relative to its exploded position.
 const LAYERS = [
-  { key: "data", z: Z_DATA, from: -1.1, name: "data", tech: "Postgres, S3" },
-  { key: "svc", z: Z_SVC, from: 0, name: "services", tech: "Node, GraphQL" },
-  { key: "ui", z: Z_UI, from: 1.1, name: "UI", tech: "React, Next.js" },
+  { key: "data", z: Z_DATA, from: -1.1, name: "data", tech: "Postgres, DynamoDB, S3" },
+  { key: "svc", z: Z_SVC, from: 0, name: "services", tech: "Node, GraphQL, REST" },
+  { key: "ui", z: Z_UI, from: 1.1, name: "UI", tech: "React, Next.js, Tailwind" },
 ] as const;
-
-const layerOf = (z: number) => (z < 1 ? "data" : z < 3 ? "svc" : "ui");
 
 export function StackIso() {
   return (
     <svg
       viewBox={`${minX.toFixed(0)} ${minY.toFixed(0)} ${(maxX - minX).toFixed(0)} ${(maxY - minY).toFixed(0)}`}
       role="img"
-      aria-label="Exploded isometric view of a full stack: a browser wireframe above three service nodes above a database cylinder and storage bucket, with requests flowing down through all three planes."
+      aria-label="Exploded isometric view of a full stack: a browser wireframe above three service nodes above databases and a storage bucket, with requests flowing down through all three planes."
       className="stack-iso h-auto w-full"
     >
       {/* Vertical request columns, drawn first so planes overlap them */}
@@ -262,8 +289,8 @@ export function StackIso() {
       </g>
 
       {/* One group per layer so the whole plane moves as a unit: collapsed
-          on arrival, exploded after load, lifted on hover. Labels live
-          inside their layer so the leader tick never detaches. */}
+          on arrival, exploded after load, folded again on scroll, lifted on
+          hover. Labels live inside their layer so ticks never detach. */}
       {LAYERS.map((layer) => {
         const edge = px(PLANE.w, PLANE.d * 0.42);
         const y = edge.y - layer.z * S;
@@ -274,16 +301,27 @@ export function StackIso() {
             className="iso-layer"
             style={{ "--iso-from": `${(layer.from * S).toFixed(1)}px` } as CSSProperties}
           >
-            {SLABS.filter((s) => layerOf(s.z) === layer.key)
-              .sort((a, b) => a.z - b.z || a.v + a.u - (b.v + b.u))
-              .map((s, i) => (
-                <Box key={i} s={s} />
+            <Box s={PLANES.find((p) => p.z === layer.z)!} />
+            {layer.key === "ui" && (
+              <>
+                {UI_BLOCKS.map((s, i) => (
+                  <Box key={i} s={s} />
+                ))}
+                <UiChrome />
+              </>
+            )}
+            {layer.key === "svc" &&
+              SVC_CUBES.map((s, i) => (
+                <g key={i} className="iso-bob" style={{ "--bob-i": i } as CSSProperties}>
+                  <Box s={s} />
+                  <FaceGlyph s={s} text={GLYPHS[i]} />
+                </g>
               ))}
-            {layer.key === "ui" && <UiChrome />}
-            {layer.key === "svc" && <SvcGlyphs />}
             {layer.key === "data" && (
               <>
+                <Sheets />
                 <Cylinder u={2.1} v={3.55} r={0.62} h={0.7} z={Z_DATA + PLANE.h} />
+                <Cylinder u={3.35} v={2.35} r={0.4} h={0.5} z={Z_DATA + PLANE.h} />
                 <Bucket u={4.7} v={3.45} rT={0.6} rB={0.42} h={0.6} z={Z_DATA + PLANE.h} />
               </>
             )}

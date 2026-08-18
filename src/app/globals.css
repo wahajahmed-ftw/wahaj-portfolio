@@ -362,6 +362,100 @@ kbd {
   }
 }
 
+/* Hero micro-life. The browser behaves like one: the cursor drifts off and
+   returns to click the red button, the content rows refresh in answer, the
+   window dots tick like a loader, the service nodes idle in the air. Every
+   loop starts and ends on the rest pose, so the reduced-motion floor
+   (duration 0.01ms, one iteration) lands exactly on the still drawing. */
+@media (prefers-reduced-motion: no-preference) {
+  .stack-iso .iso-cursor {
+    animation: iso-click 7s ease-in-out infinite;
+  }
+  .stack-iso .iso-btn {
+    animation: iso-press 7s ease-in-out infinite;
+  }
+  .stack-iso .iso-refresh {
+    animation: iso-refetch 7s ease-in-out infinite;
+  }
+  .stack-iso .iso-dot {
+    animation: iso-tick 1.8s ease-in-out calc(var(--dot-i, 0) * 0.25s) infinite;
+  }
+  .stack-iso .iso-bob {
+    animation: iso-bob 5.6s ease-in-out calc(var(--bob-i, 0) * 1.4s) infinite;
+  }
+}
+@keyframes iso-click {
+  0%,
+  8% {
+    translate: 0px 0px;
+  }
+  10% {
+    translate: 1.4px 1.4px;
+  }
+  12%,
+  34% {
+    translate: 0px 0px;
+  }
+  46%,
+  58% {
+    translate: -15px -11px;
+  }
+  70%,
+  100% {
+    translate: 0px 0px;
+  }
+}
+@keyframes iso-press {
+  0%,
+  8.5% {
+    translate: 0px 0px;
+  }
+  10.5% {
+    translate: 1.6px 1.6px;
+  }
+  13%,
+  100% {
+    translate: 0px 0px;
+  }
+}
+@keyframes iso-refetch {
+  0%,
+  12% {
+    opacity: 1;
+  }
+  16% {
+    opacity: 0.25;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  24% {
+    opacity: 0.35;
+  }
+  30%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes iso-tick {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+@keyframes iso-bob {
+  0%,
+  100% {
+    translate: 0px 0px;
+  }
+  50% {
+    translate: 0px -2.6px;
+  }
+}
+
 /* Hover inspection: the layer under the pointer lifts, everything else
    steps back. Hover-capable pointers only. */
 @media (hover: hover) {
@@ -433,6 +527,15 @@ kbd {
 }
 .scene-sched[data-step="2"] .t-detour,
 .scene-sched[data-step="3"] .t-detour {
+  opacity: 1;
+}
+/* The cron node enters with the fix, alongside the detour it drives */
+.scene-sched :is(.n-cron polygon, .lbl-cron) {
+  opacity: 0.14;
+  transition: opacity 0.5s ease-out;
+}
+.scene-sched[data-step="2"] :is(.n-cron polygon, .lbl-cron),
+.scene-sched[data-step="3"] :is(.n-cron polygon, .lbl-cron) {
   opacity: 1;
 }
 .scene-sched[data-step="3"] .scene-stamp {

@@ -27,10 +27,10 @@ The interesting failure was report exports. Large districts produced datasets
 big enough that the request timed out at API Gateway before the response
 finished, and query tuning could not reach it because the gateway timeout is a
 platform limit rather than a slow query. So exports left the request path
-entirely. A scheduled job builds the report, writes it to S3, and the client
-receives a pre-signed URL instead of a payload. API Gateway is no longer in the
-data path, which is what stopped report size from being an availability
-problem.
+entirely. A cron job builds the report file every two hours and writes it to
+S3, and the client receives a pre-signed URL instead of a payload. API Gateway
+is no longer in the data path, which is what stopped report size from being an
+availability problem.
 
 Also built validation and consistency checks that block conflicting or
 duplicate student assignments, plus an admin dashboard with downloadable

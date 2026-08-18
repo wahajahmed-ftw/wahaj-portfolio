@@ -23,6 +23,7 @@ type NodeDef = {
 const NODES: NodeDef[] = [
   { id: "client", u: 0.0, v: 3.2, w: 1.5, d: 1.5, h: 0.7, label: "Client" },
   { id: "gateway", u: 2.7, v: 2.2, w: 1.5, d: 1.5, h: 1.15, label: "API Gateway" },
+  { id: "cron", u: 3.3, v: -0.4, w: 1.3, d: 1.3, h: 0.55, label: "Cron, every 2h" },
   { id: "lambda", u: 5.4, v: 1.2, w: 1.5, d: 1.5, h: 0.9, label: "Lambda" },
   { id: "dynamo", u: 5.4, v: 4.0, w: 1.5, d: 1.5, h: 1.35, label: "DynamoDB" },
   { id: "sqs", u: 8.1, v: 0.4, w: 1.5, d: 1.5, h: 0.8, label: "SQS" },
@@ -38,8 +39,10 @@ const READ_EDGES: [string, string][] = [
   ["gateway", "lambda"],
   ["lambda", "dynamo"],
 ];
-// Export path: lambda -> sqs -> s3, then the pre-signed return to the client.
+// Export path: the cron kicks off the report build on a schedule, never a
+// request. cron -> lambda -> sqs -> s3, then the pre-signed return.
 const EXPORT_EDGES: [string, string][] = [
+  ["cron", "lambda"],
   ["lambda", "sqs"],
   ["sqs", "s3"],
 ];
@@ -57,7 +60,8 @@ const readMotion = isoPath([
   ...route(center(N.gateway), center(N.lambda)).slice(1),
 ]);
 const exportMotion = isoPath([
-  center(N.lambda),
+  center(N.cron),
+  ...route(center(N.cron), center(N.lambda)).slice(1),
   ...route(center(N.lambda), center(N.sqs)).slice(1),
   ...route(center(N.sqs), center(N.s3)).slice(1),
 ]);
@@ -107,7 +111,7 @@ function Labels() {
       {NODES.map((n) => {
         const at = px(n.u + n.w / 2, n.v + n.d, 0);
         return (
-          <text key={n.id} x={at.x} y={at.y + 18} textAnchor="middle">
+          <text key={n.id} className={`lbl-${n.id}`} x={at.x} y={at.y + 18} textAnchor="middle">
             {n.label}
           </text>
         );
@@ -153,7 +157,7 @@ export function PipelineIso({ mode }: { mode: "hero" | "sched" }) {
     <svg
       viewBox={`${minX.toFixed(0)} ${minY.toFixed(0)} ${(maxX - minX).toFixed(0)} ${(maxY - minY).toFixed(0)}`}
       role="img"
-      aria-label="Isometric diagram of the export pipeline: the client calls API Gateway and Lambda for reads, while report exports flow from Lambda through SQS to S3, and S3 returns a pre-signed URL straight to the client."
+      aria-label="Isometric diagram of the export pipeline: the client calls API Gateway and Lambda for reads, while a cron job builds the report every two hours through Lambda and SQS into S3, and the client receives a pre-signed URL straight from S3."
       className="h-auto w-full"
     >
       {/* Drafting grid on the floor plane */}
@@ -203,6 +207,7 @@ export function PipelineIso({ mode }: { mode: "hero" | "sched" }) {
       />
 
       {/* Nodes, back to front */}
+      <Box n={N.cron} />
       <Box n={N.sqs} />
       <Box n={N.lambda} />
       <Box n={N.s3} />
@@ -257,7 +262,7 @@ export function PipelineIso({ mode }: { mode: "hero" | "sched" }) {
             y={returnMid.y + 26}
             fill="var(--color-blue)"
           >
-            cron job -&gt; S3 -&gt; pre-signed URL
+            report built every 2h -&gt; S3 -&gt; pre-signed URL
           </text>
         </g>
       )}

@@ -66,9 +66,10 @@ export function CaseScheduling() {
                 body: (
                   <>
                     <p>
-                      A scheduled job builds the report and writes it to S3,
-                      and the client receives a pre-signed URL instead of a
-                      payload. API Gateway is no longer in the data path.
+                      A cron job builds the report file every two hours and
+                      writes it to S3, and the client receives a pre-signed
+                      URL instead of a payload. API Gateway is no longer in
+                      the data path.
                     </p>
                     <p>
                       That is what stopped report size from being an
