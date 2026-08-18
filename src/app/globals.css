@@ -409,6 +409,25 @@ kbd {
   .stack-iso .iso-bob {
     animation: iso-bob 5.6s ease-in-out calc(var(--bob-i, 0) * 1.4s) infinite;
   }
+  .stack-iso .iso-led {
+    animation: iso-led 2.4s ease-in-out calc(var(--led-i, 0) * 0.8s) infinite;
+  }
+  .stack-iso .iso-file {
+    animation: iso-file 7s ease-in-out infinite;
+  }
+  /* Mesh and replication packets ride offset-path; without support they
+     must stay parked invisible, hence the guard. */
+  @supports (offset-path: path("M0 0 L1 1")) {
+    .stack-iso .iso-mesh-a {
+      animation: iso-mesh-a 7s ease-in-out infinite;
+    }
+    .stack-iso .iso-mesh-b {
+      animation: iso-mesh-b 7s ease-in-out infinite;
+    }
+    .stack-iso .iso-repl {
+      animation: iso-repl 7s ease-in-out infinite;
+    }
+  }
 }
 /* One 7s master clock. The beat: press at 6%, request falls 8-20%, the
    service glyph acknowledges as it passes, the database flashes on landing,
@@ -592,6 +611,98 @@ kbd {
   9%,
   100% {
     opacity: 1;
+  }
+}
+/* Services: the handler consults the fn node as the request passes, a
+   second call drifts the other way later; every node blips its liveness. */
+@keyframes iso-mesh-a {
+  0%,
+  15.5% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  17% {
+    opacity: 1;
+  }
+  19.5% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+  21%,
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+@keyframes iso-mesh-b {
+  0%,
+  52% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  53.5% {
+    opacity: 1;
+  }
+  57% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+  58.5%,
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+@keyframes iso-led {
+  0% {
+    opacity: 0.15;
+  }
+  8% {
+    opacity: 1;
+  }
+  16%,
+  100% {
+    opacity: 0.15;
+  }
+}
+/* Data: the primary syncs the small store right after the write, and the
+   cron's report file drops into the bucket on its own beat. */
+@keyframes iso-repl {
+  0%,
+  23.5% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  28.5% {
+    offset-distance: 100%;
+    opacity: 1;
+  }
+  30%,
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+@keyframes iso-file {
+  0%,
+  58% {
+    translate: 0px -24px;
+    opacity: 0;
+  }
+  61% {
+    opacity: 1;
+  }
+  68% {
+    translate: 0px -3px;
+    opacity: 1;
+  }
+  71%,
+  100% {
+    translate: 0px 0px;
+    opacity: 0;
   }
 }
 @keyframes iso-tick {

@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { isoBox, px, S } from "@/lib/iso";
+import { isoBox, isoPath, px, route, S } from "@/lib/iso";
 
 /**
  * The full stack, exploded: three floating isometric planes with requests
@@ -360,16 +360,69 @@ export function StackIso() {
               </>
             )}
             {layer.key === "svc" &&
-              SVC_CUBES.map((s, i) => (
-                <g key={i} className="iso-bob" style={{ "--bob-i": i } as CSSProperties}>
-                  <Box s={s} />
-                  {/* the middle node sits by the request column and flashes
-                      blue as the click's request passes through */}
-                  <FaceGlyph s={s} text={GLYPHS[i]} className={i === 1 ? "iso-ack" : undefined} />
-                </g>
-              ))}
+              (() => {
+                const zTop = Z_SVC + PLANE.h;
+                const c = SVC_CUBES.map((s) => [s.u + s.w / 2, s.v + s.d / 2] as [number, number]);
+                const linkA = isoPath(route(c[1], c[2]));
+                const linkB = isoPath(route(c[0], c[1]));
+                return (
+                  <>
+                    {/* service mesh: the nodes talk to each other. Packets
+                        ride offset-path along the links, drawn before the
+                        cubes so they slip underneath on arrival. */}
+                    <g transform={`translate(0 ${(-zTop * S).toFixed(1)})`}>
+                      <path d={linkA} className="iso-link" fill="none" stroke="#c7d2f5" strokeWidth="1.4" strokeDasharray="4 4" />
+                      <path d={linkB} className="iso-link" fill="none" stroke="#c7d2f5" strokeWidth="1.4" strokeDasharray="4 4" />
+                      <circle className="iso-mesh-a" r="2.6" fill="var(--color-blue)" opacity="0" style={{ offsetPath: `path("${linkA}")` } as CSSProperties} />
+                      <circle className="iso-mesh-b" r="2.6" fill="var(--color-blue)" opacity="0" style={{ offsetPath: `path("${linkB}")` } as CSSProperties} />
+                    </g>
+                    {SVC_CUBES.map((s, i) => {
+                      const led = px(s.u + 0.82, s.v + 0.82);
+                      return (
+                        <g key={i} className="iso-bob" style={{ "--bob-i": i } as CSSProperties}>
+                          <Box s={s} />
+                          {/* the middle node sits by the request column and
+                              flashes blue as the click's request passes */}
+                          <FaceGlyph s={s} text={GLYPHS[i]} className={i === 1 ? "iso-ack" : undefined} />
+                          {/* liveness blip on every node's top face */}
+                          <ellipse
+                            className="iso-led"
+                            style={{ "--led-i": i } as CSSProperties}
+                            cx={led.x.toFixed(1)}
+                            cy={(led.y - (s.z + s.h) * S).toFixed(1)}
+                            rx={(0.055 * ERX).toFixed(1)}
+                            ry={(0.055 * ERY).toFixed(1)}
+                            fill="var(--color-blue)"
+                            opacity="0.15"
+                          />
+                        </g>
+                      );
+                    })}
+                  </>
+                );
+              })()}
             {layer.key === "data" && (
               <>
+                {/* replication link: primary syncs the small store right
+                    after each write, packet drawn before the cylinders so
+                    it slips underneath on arrival */}
+                <g transform={`translate(0 ${(-(Z_DATA + PLANE.h) * S).toFixed(1)})`}>
+                  <path
+                    d={isoPath(route([2.1, 3.55], [3.35, 2.35]))}
+                    className="iso-link"
+                    fill="none"
+                    stroke="#c7d2f5"
+                    strokeWidth="1.4"
+                    strokeDasharray="4 4"
+                  />
+                  <circle
+                    className="iso-repl"
+                    r="2.4"
+                    fill="var(--color-blue)"
+                    opacity="0"
+                    style={{ offsetPath: `path("${isoPath(route([2.1, 3.55], [3.35, 2.35]))}")` } as CSSProperties}
+                  />
+                </g>
                 <Sheets />
                 <Cylinder u={2.1} v={3.55} r={0.62} h={0.7} z={Z_DATA + PLANE.h} />
                 <Cylinder u={3.35} v={2.35} r={0.4} h={0.5} z={Z_DATA + PLANE.h} />
@@ -383,6 +436,15 @@ export function StackIso() {
                   ry={(0.62 * ERY).toFixed(1)}
                   fill="var(--color-bluesoft)"
                   opacity="0"
+                />
+                {/* the cron's report file drops into the bucket on its own
+                    beat, independent of the click, like the real thing */}
+                <Flat
+                  className="iso-file"
+                  pts={rect(4.49, 3.3, 0.42, 0.3)}
+                  z={Z_DATA + PLANE.h + 0.6}
+                  fill="#ffffff"
+                  stroke={INK}
                 />
               </>
             )}
