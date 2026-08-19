@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { BackToTop } from "@/components/back-to-top";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { siteUrl } from "@/lib/site-url";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -32,7 +33,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase: new URL(siteUrl),
   title: site.title,
   description: site.description,
   alternates: { canonical: "/" },
@@ -56,7 +57,7 @@ const personSchema = {
   name: site.name,
   jobTitle: "Full-stack engineer",
   email: `mailto:${site.email}`,
-  url: site.url,
+  url: siteUrl,
   sameAs: [site.linkedin],
   address: {
     "@type": "PostalAddress",
