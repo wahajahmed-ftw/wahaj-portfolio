@@ -4,6 +4,7 @@ import {
   EnvelopeSimpleIcon,
   LinkedinLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
+import { ContactButton } from "@/components/contact-button";
 import { StackIso } from "@/components/stack-iso";
 import { Tilt } from "@/components/tilt";
 import { CTA, site } from "@/lib/site";
@@ -62,9 +63,7 @@ export function Hero() {
               Selected work
               <ArrowDownIcon size={15} weight="bold" />
             </a>
-            <a href={`mailto:${site.email}`} className="btn btn-secondary">
-              {CTA}
-            </a>
+            <ContactButton className="btn btn-secondary">{CTA}</ContactButton>
           </div>
 
           <ul
@@ -83,9 +82,9 @@ export function Hero() {
             <a href={site.linkedin} aria-label="LinkedIn" className="icon-btn" target="_blank" rel="noopener noreferrer">
               <LinkedinLogoIcon size={19} />
             </a>
-            <a href={`mailto:${site.email}`} aria-label="Email" className="icon-btn">
+            <ContactButton className="icon-btn" aria-label="Email">
               <EnvelopeSimpleIcon size={19} />
-            </a>
+            </ContactButton>
           </div>
         </div>
 
