@@ -2,6 +2,7 @@ import {
   ArrowUpRightIcon,
   EnvelopeSimpleIcon,
 } from "@phosphor-icons/react/dist/ssr";
+import { ContactButton } from "@/components/contact-button";
 import { Reveal } from "@/components/reveal";
 import { CTA, site } from "@/lib/site";
 
@@ -22,10 +23,10 @@ export function Contact() {
               fastest way to reach me, and I answer.
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a href={`mailto:${site.email}`} className="btn btn-invert">
+              <ContactButton className="btn btn-invert">
                 <EnvelopeSimpleIcon size={16} weight="bold" />
                 {CTA}
-              </a>
+              </ContactButton>
               <span className="font-mono text-small text-bluesoft">{site.email}</span>
             </div>
           </Reveal>

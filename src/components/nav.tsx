@@ -1,4 +1,5 @@
 import { LinkedinLogoIcon } from "@phosphor-icons/react/dist/ssr";
+import { ContactButton } from "@/components/contact-button";
 import { CTA, site } from "@/lib/site";
 
 const links = [
@@ -45,9 +46,9 @@ export function Nav() {
           >
             <LinkedinLogoIcon size={19} />
           </a>
-          <a href={`mailto:${site.email}`} className="btn btn-primary">
+          <ContactButton className="btn btn-primary" align="right">
             {CTA}
-          </a>
+          </ContactButton>
         </nav>
       </div>
     </header>
