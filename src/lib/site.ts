@@ -33,7 +33,7 @@ export const site = {
   // Restore the nav/hero/footer links and the JSON-LD sameAs entry together.
   github: "https://github.com/wahajahmed-ftw",
   linkedin: "https://www.linkedin.com/in/wahajahmed-ftw/",
-  title: "Wahaj Ahmed. Systems that hold up.",
+  title: "Wahaj Ahmed. Full Stack Engineer.",
   description:
     "Full-stack engineer in Islamabad. I build React and Node systems that hold up past 100,000 users.",
   url: resolveUrl(),

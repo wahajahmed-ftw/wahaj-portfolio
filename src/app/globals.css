@@ -239,12 +239,24 @@ kbd {
 
 /* Sticky only when the viewport can actually hold the pinned figure.
    Shorter screens scroll it with the content instead, so the stamp at the
-   figure's bottom edge stays reachable. */
+   figure's bottom edge stays reachable.
+
+   The step runway lives in this same query on purpose. A wide-but-short
+   viewport (1366x768 leaves 729px of viewport, eleven short of the bar)
+   failed the pin here while scroll-steps.tsx still drove the steps from
+   scroll position, so the figure scrolled away and the scene played
+   off-screen. Pin and runway now stand or fall together, and
+   scroll-steps.tsx matches this query exactly: change one, change both. */
 @media (min-width: 1024px) and (min-height: 740px) {
   .scene-figure {
     position: sticky;
     top: 6rem;
     align-self: start;
+  }
+  /* Runway that gives each step room to drive the scroll. Pointless without
+     the pin, so it is gated by the same query rather than by width alone. */
+  .scene-step:not(:last-child) {
+    min-height: 40vh;
   }
 }
 
