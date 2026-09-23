@@ -16,6 +16,9 @@ export const site = {
   // Restore the nav/hero/footer links and the JSON-LD sameAs entry together.
   github: "https://github.com/wahajahmed-ftw",
   linkedin: "https://www.linkedin.com/in/wahajahmed-ftw/",
+  // Public copy of the CV. The phone number is deliberately left off; keep it
+  // off when replacing this file.
+  resume: "/Wahaj-Ahmed-Resume.pdf",
   title: "Wahaj Ahmed. Full Stack Engineer.",
   description:
     "Full-stack engineer in Islamabad. I build React and Node systems that hold up past 100,000 users.",

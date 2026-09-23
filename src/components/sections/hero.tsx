@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import {
   ArrowDownIcon,
+  DownloadSimpleIcon,
   EnvelopeSimpleIcon,
   LinkedinLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
@@ -64,6 +65,10 @@ export function Hero() {
               <ArrowDownIcon size={15} weight="bold" />
             </a>
             <ContactButton className="btn btn-secondary">{CTA}</ContactButton>
+            <a href={site.resume} download className="btn btn-secondary">
+              Download resume
+              <DownloadSimpleIcon size={15} weight="bold" />
+            </a>
           </div>
 
           <ul
